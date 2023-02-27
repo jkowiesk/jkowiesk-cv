@@ -6,22 +6,25 @@ import vertex from './glsl/shader.vert'
 import fragment from './glsl/shader.frag'
 import { forwardRef, useImperativeHandle, useRef } from 'react'
 
-const ShaderImpl = shaderMaterial(
+const textureLoader = new THREE.TextureLoader()
+
+const squareTexture = textureLoader.load('/square.png')
+squareTexture.wrapS = THREE.RepeatWrapping
+squareTexture.wrapT = THREE.RepeatWrapping
+
+const SomeShader = shaderMaterial(
   {
     time: 0,
-    color: new THREE.Color(0.05, 0.0, 0.025),
+    color: new THREE.Color(0.05, 0.0, 1),
+    uTexture: squareTexture,
   },
   vertex,
   fragment,
 )
 
-// This is the 🔑 that HMR will renew if this file is edited
-// It works for THREE.ShaderMaterial as well as for drei/shaderMaterial
-// @ts-ignore
-ShaderImpl.key = THREE.MathUtils.generateUUID()
+SomeShader.key = THREE.MathUtils.generateUUID
 
-extend({ ShaderImpl })
-
+extend({ SomeShader })
 // eslint-disable-next-line react/display-name
 const Shader = forwardRef(({ children, ...props }, ref) => {
   const localRef = useRef()
@@ -29,7 +32,7 @@ const Shader = forwardRef(({ children, ...props }, ref) => {
   useImperativeHandle(ref, () => localRef.current)
 
   useFrame((_, delta) => (localRef.current.time += delta))
-  return <shaderImpl ref={localRef} glsl={THREE.GLSL3} key={ShaderImpl.key} {...props} attach='material' />
+  return <someShader ref={localRef} glsl={THREE.GLSL3} key={SomeShader.key} {...props} attach='material' />
 })
 
 export default Shader
