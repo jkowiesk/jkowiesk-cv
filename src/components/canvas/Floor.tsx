@@ -38,7 +38,7 @@ export default function Floor() {
 
   return (
     <mesh>
-      <planeGeometry ref={sphere} args={[5, 5, ROW, ROW]} />
+      <planeGeometry ref={sphere} args={[1, 1, ROW, ROW]} />
       <Shader ref={material} />
     </mesh>
   )
