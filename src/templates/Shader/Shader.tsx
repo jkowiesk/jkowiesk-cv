@@ -8,15 +8,16 @@ import { forwardRef, useImperativeHandle, useRef } from 'react'
 
 const textureLoader = new THREE.TextureLoader()
 
-const squareTexture = textureLoader.load('/square.png')
+const squareTexture = textureLoader.load('/square2.png')
 squareTexture.wrapS = THREE.RepeatWrapping
 squareTexture.wrapT = THREE.RepeatWrapping
 
 const SomeShader = shaderMaterial(
   {
-    time: 0,
+    time: 1,
     color: new THREE.Color(0.05, 0.0, 1),
     uTexture: squareTexture,
+    uRepeat: 32,
   },
   vertex,
   fragment,

@@ -8,7 +8,13 @@ const Stage = dynamic(() => import('@/components/canvas/Stage'), { ssr: false })
 
 // Dom components go here
 export default function Page(props) {
-  return <></>
+  return (
+    <>
+      {/* <div className='fixed top-0 bottom-0 left-0 right-0 w-64 h-64 m-auto bg-red-500'>
+        <h1>test</h1>
+      </div> */}
+    </>
+  )
 }
 
 // Canvas components go here

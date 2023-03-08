@@ -4,16 +4,14 @@ import { SphereGeometryProps, useLoader } from '@react-three/fiber'
 import Shader from '@/templates/Shader/Shader'
 
 export default function Floor() {
-  const floor = useLoader(THREE.TextureLoader, '/square.png')
-
   const material = useRef<any>()
-  const sphere = useRef<any>()
+  const plane = useRef<any>()
 
-  const ROW = 15
+  const ROW = 256
 
   useEffect(() => {
-    if (sphere.current) {
-      const count = sphere.current.attributes.position.count
+    if (plane.current) {
+      const count = plane.current.attributes.position.count
       const randoms = new Float32Array(count)
 
       for (let i = ROW + 1; i < count; i += 2) {
@@ -28,17 +26,19 @@ export default function Floor() {
         randoms[i] = rand
         randoms[i + 1] = rand
       }
-      sphere.current.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1))
+      plane.current.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1))
     }
   }, [])
+
+  useEffect(() => {}, [])
 
   /* useEffect(() => {
     console.log(floor)
   }, [floor]) */
 
   return (
-    <mesh>
-      <planeGeometry ref={sphere} args={[1, 1, ROW, ROW]} />
+    <mesh rotation-x={-1} position={[0, 0, -8]}>
+      <planeGeometry ref={plane} args={[32, 32, ROW, ROW]} />
       <Shader ref={material} />
     </mesh>
   )
