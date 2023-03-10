@@ -16,6 +16,6 @@ void main() {
 
     gl_Position = projectedPosition;
 
-    vSaturation = max(abs(sin(aRandom + time * 0.3)), 0.3) * 3.0;
+    vSaturation = max(abs(sin(aRandom + time * 0.3)), 0.3) * max(abs(cos(aRandom + time * 0.3)), 0.3) * 3.0;
     vUv = uv * uRepeat;
 }

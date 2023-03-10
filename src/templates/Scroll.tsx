@@ -3,7 +3,7 @@
 // 1 - wrap <Component {...pageProps} /> with <Scroll /> in _app.jsx
 // 2 - add <ScrollTicker /> wherever in the canvas
 // 3 - enjoy
-import { cameraDefault, portalPosition } from '@/utils/global'
+import { cameraDefault, portalPosition, portalRadius } from '@/utils/global'
 import { addEffect, useFrame } from '@react-three/fiber'
 import Lenis from '@studio-freight/lenis'
 import { useEffect } from 'react'
@@ -25,7 +25,7 @@ export default function Scroll({ children }) {
     const lenis = new Lenis({
       wrapper: wrapper.current,
       content: content.current,
-      duration: 6,
+      duration: 12,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
       direction: 'vertical', // vertical, horizontal
       gestureDirection: 'both', // vertical, horizontal, both
@@ -69,21 +69,28 @@ export default function Scroll({ children }) {
 }
 
 export const ScrollTicker = ({ cameraCenter, smooth = 2 }) => {
+  const divide = 0.8
   useFrame(({ viewport, camera }, delta) => {
-    let distanceCamToPortal = portalPosition[2] - cameraDefault[2]
-    let roadY = Math.sin(Math.PI * (state.progress + 0.01)) * 3
-    let changePositionY = damp(camera.position.y, roadY, smooth, delta)
+    let progress
+    if (state.progress < divide) {
+      progress = (1 / 0.8) * state.progress
+      let distanceCamToPortal = portalPosition[2] - cameraDefault[2] - portalRadius + 1
+      let roadY = Math.sin((Math.PI / 2) * progress) * 3
+      let changePositionY = damp(camera.position.y, roadY, smooth, delta)
 
-    cameraCenter.current.y = cameraDefault[1] + changePositionY
-    camera.position.y = changePositionY
+      cameraCenter.current.y = cameraDefault[1] + changePositionY
+      camera.position.y = changePositionY
 
-    let changePositionZ = damp(
-      camera.position.z,
-      state.progress * distanceCamToPortal + cameraDefault[2],
-      smooth,
-      delta,
-    )
-    camera.position.z = changePositionZ
+      let changePositionZ = damp(camera.position.z, progress * distanceCamToPortal + cameraDefault[2], smooth, delta)
+      camera.position.z = changePositionZ
+    } else {
+      progress = state.progress - 1 / (1 - divide)
+      let roadY = progress * 0.01
+      let changePositionY = damp(camera.position.y, roadY, smooth, delta)
+
+      cameraCenter.current.y = cameraDefault[1] + changePositionY
+      camera.position.y = changePositionY
+    }
   })
 
   return null

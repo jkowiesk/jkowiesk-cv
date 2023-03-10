@@ -6,6 +6,7 @@ import Shader from '@/templates/Shader/Shader'
 export default function Floor() {
   const material = useRef<any>()
   const plane = useRef<any>()
+  const floor = useRef<any>()
 
   const ROW = 256
 
@@ -31,15 +32,11 @@ export default function Floor() {
   }, [])
 
   useEffect(() => {
-    console.log(plane)
-  }, [])
-
-  /* useEffect(() => {
-    console.log(floor)
-  }, [floor]) */
+    floor.current.renderOrder = 1
+  }, [floor])
 
   return (
-    <mesh rotation-x={-1} position={[0, 0, -8]}>
+    <mesh ref={floor} rotation-x={-1} position={[0, 0, -8]}>
       <planeGeometry ref={plane} args={[64, 64, ROW, ROW]} />
       <Shader ref={material} />
     </mesh>

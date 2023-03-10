@@ -4,7 +4,7 @@ import { extend, useFrame } from '@react-three/fiber'
 import { shaderMaterial } from '@react-three/drei'
 import vertex from './glsl/shader.vert'
 import fragment from './glsl/shader.frag'
-import { forwardRef, useImperativeHandle, useRef } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 
 const textureLoader = new THREE.TextureLoader()
 
@@ -12,7 +12,7 @@ const squareTexture = textureLoader.load('/square2.png')
 squareTexture.wrapS = THREE.RepeatWrapping
 squareTexture.wrapT = THREE.RepeatWrapping
 
-const SomeShader = shaderMaterial(
+const FloorShader = shaderMaterial(
   {
     time: 1,
     color: new THREE.Color(0.05, 0.0, 1),
@@ -23,9 +23,9 @@ const SomeShader = shaderMaterial(
   fragment,
 )
 
-SomeShader.key = THREE.MathUtils.generateUUID
+FloorShader.key = THREE.MathUtils.generateUUID
 
-extend({ SomeShader })
+extend({ FloorShader })
 // eslint-disable-next-line react/display-name
 const Shader = forwardRef(({ children, ...props }, ref) => {
   const localRef = useRef()
@@ -33,7 +33,8 @@ const Shader = forwardRef(({ children, ...props }, ref) => {
   useImperativeHandle(ref, () => localRef.current)
 
   useFrame((_, delta) => (localRef.current.time += delta))
-  return <someShader ref={localRef} glsl={THREE.GLSL3} key={SomeShader.key} {...props} attach='material' />
+
+  return <floorShader ref={localRef} glsl={THREE.GLSL3} key={FloorShader.key} {...props} attach='material' />
 })
 
 export default Shader
