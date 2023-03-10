@@ -30,7 +30,9 @@ export default function Floor() {
     }
   }, [])
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    console.log(plane)
+  }, [])
 
   /* useEffect(() => {
     console.log(floor)
@@ -38,7 +40,7 @@ export default function Floor() {
 
   return (
     <mesh rotation-x={-1} position={[0, 0, -8]}>
-      <planeGeometry ref={plane} args={[32, 32, ROW, ROW]} />
+      <planeGeometry ref={plane} args={[64, 64, ROW, ROW]} />
       <Shader ref={material} />
     </mesh>
   )
