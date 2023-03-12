@@ -16,7 +16,7 @@ export default function Page(props) {
         <div className='absolute top-0 left-0 w-full h-full bg-black opacity-80'></div>
         <section className='relative flex items-center justify-between w-1/3 h-64'>
           <div className='text-5xl'>
-            <h1 className='text-paragraph'>Hi I'm,</h1>
+            <h1 className='text-paragraph'>Hi I&#39;m,</h1>
             <h1 className='text-headline'>Jakub Kowieski</h1>
             <h1 className='text-contrast'>Front-end dev</h1>
           </div>
