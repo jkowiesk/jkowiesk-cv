@@ -1,10 +1,13 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Preload } from '@react-three/drei'
 import { cameraDefault } from '@/utils/global'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Scene({ children, ...props }) {
   // Everything defined in here will persist between route changes, only children are swapped
+  const router = useRouter()
+  useEffect(() => {}, [])
 
   return (
     <Canvas camera={{ fov: 100, near: 0.1, far: 1000, position: cameraDefault }} {...props}>

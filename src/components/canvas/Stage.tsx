@@ -9,21 +9,26 @@ import useMouse from '@/hooks/useMouse'
 import { useFrame, useThree } from '@react-three/fiber'
 import { VENUSES, cameraDefault, portalPosition, portalRadius } from '@/utils/global'
 import { ScrollTicker, state } from '@/templates/Scroll'
+import { useRouter } from 'next/router'
 
 const CAMERA_SPEED = 0.08
 
 export default function Stage() {
   const portal = useRef<any>()
-  const isInPortal = useRef<boolean>(false)
   const lookAtPoint = useMemo(() => new THREE.Vector3(portalPosition[0], -3, portalPosition[2]), [])
   let { mouseX, mouseY } = useMouse()
+  const router = useRouter()
+  const [isRouting, setIsRouting] = useState<boolean>(false)
 
   const cameraCenter = useRef<{ y: number; z: number }>({ y: cameraDefault[1], z: cameraDefault[2] })
 
-  useFrame(({ camera }) => {
-    if (isInPortal.current) {
+  useEffect(() => {
+    if (isRouting) {
+      router.push('home')
     }
+  }, [isRouting])
 
+  useFrame(({ camera }) => {
     const tempX = camera.position.x
     const tempY = camera.position.y
     const [defaultX] = cameraDefault
@@ -31,8 +36,10 @@ export default function Stage() {
     const isCameraCloseToPortal = camera.position.z < portalPosition[2] + portalRadius
 
     if (isCameraCloseToPortal) {
-      if (camera.position.y < 0.1) camera.position.y = -2
-      isInPortal.current = true
+      if (camera.position.y < 0.1) {
+        camera.position.y = -2
+        setIsRouting(true)
+      }
       mouseX = 0.0
       mouseY = 0.5
     } else if (camera.position.z < portalPosition[2] + 2 * portalRadius) {
@@ -47,10 +54,6 @@ export default function Stage() {
     }
     camera.lookAt(portal.current.position)
   })
-
-  /* useEffect(() => {
-    console.log(test)
-  }) */
 
   return (
     <>

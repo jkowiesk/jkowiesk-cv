@@ -7,7 +7,7 @@ import Scroll from '@/templates/Scroll'
 
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true })
 
-export default function App({ Component, pageProps = { title: 'index' } }) {
+export default function App({ Component, pageProps = { title: 'index', isScroll: false } }) {
   const ref = useRef()
   return (
     <>
@@ -21,9 +21,7 @@ export default function App({ Component, pageProps = { title: 'index' } }) {
             {Component.canvas(pageProps)}
           </Scene>
         )}
-        <Scroll>
-          <Component {...pageProps} />
-        </Scroll>
+        <Component {...pageProps} />
       </Layout>
     </>
   )

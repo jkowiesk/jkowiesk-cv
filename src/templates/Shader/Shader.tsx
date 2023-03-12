@@ -7,8 +7,8 @@ import fragment from './glsl/shader.frag'
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 
 const textureLoader = new THREE.TextureLoader()
-
 const squareTexture = textureLoader.load('/square2.png')
+
 squareTexture.wrapS = THREE.RepeatWrapping
 squareTexture.wrapT = THREE.RepeatWrapping
 
