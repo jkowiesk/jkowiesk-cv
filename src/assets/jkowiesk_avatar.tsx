@@ -1,4 +1,4 @@
-export const Avatar = () => (
+/* export const Avatar = () => (
   <svg
     width='273'
     height='348'
@@ -30,3 +30,4 @@ export const Avatar = () => (
     </defs>
   </svg>
 )
+ */
