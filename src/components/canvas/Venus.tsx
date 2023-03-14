@@ -3,14 +3,16 @@ import * as THREE from 'three'
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { Float, Plane } from '@react-three/drei'
+import { Float, Plane, SpotLight } from '@react-three/drei'
 import { useSkinnedMeshClone } from '@/hooks/useSkinnedMeshClone'
+import { portalPosition } from '@/utils/global'
 
 type Props = {
   position: { x: number; y: number; z: number }
 }
 
 export default function Venus({ position }: any) {
+  const spotLight = useRef<any>()
   const venus = useRef<any>()
   const { x, y, z } = position
 
@@ -18,6 +20,10 @@ export default function Venus({ position }: any) {
   const rand = useMemo(() => {
     return Math.random()
   }, [])
+
+  const spotLightPosition = [x, y + 2, z]
+
+  useEffect(() => {})
 
   return (
     <>
@@ -32,6 +38,8 @@ export default function Venus({ position }: any) {
         rotation={[(rand * Math.PI) / 3.5, 0, 0]}>
         <primitive ref={venus} object={obj.scene} scale={0.15} />
       </Float>
+      {/*
+        // @ts-ignore */}
     </>
   )
   /* <mesh ref={venus} scale={0.001} geometry={obj.children[0].geometry}>

@@ -8,7 +8,7 @@ import { Vector3, Vector3Props, useThree } from '@react-three/fiber'
 import { DOM_VENUSES, cameraDefault } from '@/utils/global'
 import Venus from './Venus'
 import { Environment } from '@react-three/drei'
-import Sun from './Sun'
+import { SunEnvironment, Sun } from './Sun'
 
 export default function BackgroundStage() {
   const test = useRef<any>()
@@ -25,7 +25,7 @@ export default function BackgroundStage() {
   return (
     <>
       <Environment>
-        <Sun position={[0, 0, -5]} />
+        <SunEnvironment />
       </Environment>
       {DOM_VENUSES.map(({ position }, idx) => (
         <Venus key={idx} position={position} />

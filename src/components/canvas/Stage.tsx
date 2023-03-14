@@ -2,25 +2,28 @@ import * as THREE from 'three'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Shader from '@/templates/Shader/Shader'
 import Floor from './Floor'
-import Sun from './Sun'
+import { Sun, SunEnvironment } from './Sun'
 import Venus from './Venus'
-import { CameraControls, Environment } from '@react-three/drei'
+import { CameraControls, Environment, SpotLight, Stars, useHelper } from '@react-three/drei'
 import useMouse from '@/hooks/useMouse'
 import { useFrame, useThree } from '@react-three/fiber'
-import { VENUSES, cameraDefault, portalPosition, portalRadius } from '@/utils/global'
+import { LAMPS, VENUSES, cameraDefault, portalPosition, portalRadius } from '@/utils/global'
 import { ScrollTicker, state } from '@/templates/Scroll'
 import { useRouter } from 'next/router'
+import Lamp from './Lamp'
+import Text from './Text'
 
 const CAMERA_SPEED = 0.08
 
 export default function Stage() {
   const portal = useRef<any>()
+  const spotLight = useRef<any>()
+  const cameraCenter = useRef<{ y: number; z: number }>({ y: cameraDefault[1], z: cameraDefault[2] })
+
   const lookAtPoint = useMemo(() => new THREE.Vector3(portalPosition[0], -3, portalPosition[2]), [])
   let { mouseX, mouseY } = useMouse()
   const router = useRouter()
   const [isRouting, setIsRouting] = useState<boolean>(false)
-
-  const cameraCenter = useRef<{ y: number; z: number }>({ y: cameraDefault[1], z: cameraDefault[2] })
 
   useEffect(() => {
     if (isRouting) {
@@ -45,24 +48,29 @@ export default function Stage() {
     } else if (camera.position.z < portalPosition[2] + 2 * portalRadius) {
       mouseY = -0.5
     }
-    camera.position.x += (defaultX + mouseX * 2 - tempX) * CAMERA_SPEED
+    camera.position.x += (defaultX + mouseX * 6 - tempX) * (CAMERA_SPEED / 4)
     camera.position.y += (cameraCenter.current.y - mouseY * 1.2 - tempY) * CAMERA_SPEED
 
-    if (isCameraCloseToPortal && camera.position.y < 0.5) {
+    /* if (isCameraCloseToPortal && camera.position.y < 1) {
       camera.lookAt(lookAtPoint)
       return
-    }
+    } */
     camera.lookAt(portal.current.position)
   })
 
   return (
     <>
-      <Environment background resolution={512}>
-        <Sun />
+      <Stars fade />
+      <Environment>
+        <SunEnvironment />
       </Environment>
+      <Sun />
       <ScrollTicker cameraCenter={cameraCenter} />
       {VENUSES.map(({ position }, idx) => (
         <Venus key={idx} position={position} />
+      ))}
+      {LAMPS.map(({ position, rotationY }, idx) => (
+        <Lamp key={idx} position={position} rotationY={rotationY} />
       ))}
       <mesh ref={portal} position={[0, -0.3, -10]}>
         <cylinderGeometry args={[portalRadius, portalRadius, 0.5, 64]} />
@@ -72,6 +80,7 @@ export default function Stage() {
         <boxGeometry args={[1, 1, 5]} />
         <meshBasicMaterial side={THREE.DoubleSide} color={'#000000'} />
       </mesh>
+      <Text />
       <Floor />
     </>
   )
