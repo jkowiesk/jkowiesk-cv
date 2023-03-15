@@ -21,8 +21,8 @@ export default function App({ Component, pageProps = { title: 'index', isScroll:
             {Component.canvas(pageProps)}
           </Scene>
         )}
-        <Component {...pageProps} />
       </Layout>
+      <Component {...pageProps} />
     </>
   )
 }

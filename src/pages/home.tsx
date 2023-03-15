@@ -11,18 +11,21 @@ const BackgroundStage = dynamic(() => import('@/components/canvas/BackgroundStag
 // Dom components go here
 export default function Page(props) {
   return (
-    <div className='fixed top-0 left-0 w-full h-full'>
-      <main className='w-full h-full grid place-items-center'>
-        <div className='absolute top-0 left-0 w-full h-full bg-black opacity-80'></div>
-        <section className='relative flex items-center justify-between w-1/3 h-64'>
+    <div>
+      <main className='relative w-[100vw] h-[100vh] grid place-items-center z-1'>
+        <div className='absolute top-0 left-0 bg-black w-[100vw] h-[100vh] opacity-80'></div>
+        <div className='fixed flex items-center justify-between w-1/3 h-64 z-1'>
           <div className='text-5xl'>
             <h1 className='text-paragraph'>Hi I&#39;m,</h1>
             <h1 className='text-headline'>Jakub Kowieski</h1>
             <h1 className='text-contrast'>Front-end dev</h1>
           </div>
           <Image className='' src='/icons/avatar.png' alt='avatar' width={200} height={200} />
-        </section>
+        </div>
       </main>
+      <section className='relative bg-gradient-to-b w-[100vw] h-[100vh] from-black to-background z-2'>
+        <div>test</div>
+      </section>
     </div>
   )
 }
@@ -33,4 +36,15 @@ Page.canvas = (props) => <BackgroundStage />
 
 export async function getStaticProps() {
   return { props: { title: 'Home' } }
+}
+
+{
+  /* <div className='relative flex items-center justify-between w-1/3 h-64'>
+  <div className='text-5xl'>
+    <h1 className='text-paragraph'>Hi I&#39;m,</h1>
+    <h1 className='text-headline'>Jakub Kowieski</h1>
+    <h1 className='text-contrast'>Front-end dev</h1>
+  </div>
+  <Image className='' src='/icons/avatar.png' alt='avatar' width={200} height={200} />
+</div> */
 }
