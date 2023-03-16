@@ -20,3 +20,13 @@
     padding: 0;
   }
 }
+
+@layer utilities {
+  .gradient {
+    @apply bg-gradient-to-r from-purple-secondary to-purple-primary;
+  }
+
+  .textGradient {
+    @apply text-transparent  bg-clip-text gradient;
+  }
+}
