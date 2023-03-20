@@ -1,5 +1,8 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
+import AboutMe from '@/components/dom/AbouMe'
+import Skills from '@/components/dom/Skills'
 
 // Dynamic import is used to prevent a payload when the website starts, that includes threejs, r3f etc..
 // WARNING ! errors might get obfuscated by using dynamic import.
@@ -11,18 +14,23 @@ const BackgroundStage = dynamic(() => import('@/components/canvas/BackgroundStag
 // Dom components go here
 export default function Page(props) {
   return (
-    <div className='fixed top-0 left-0 w-full h-full'>
-      <main className='w-full h-full grid place-items-center'>
-        <div className='absolute top-0 left-0 w-full h-full bg-black opacity-80'></div>
-        <section className='relative flex items-center justify-between w-1/3 h-64'>
+    <div>
+      <main className='relative w-[100vw] h-[100vh] grid place-items-center z-1'>
+        <div className='absolute top-0 left-0 bg-black w-[100vw] h-[100vh] opacity-70'></div>
+        <div className='fixed flex items-center justify-between w-1/3 h-64'>
           <div className='text-5xl'>
-            <h1 className='text-paragraph'>Hi I&#39;m,</h1>
+            <h1 className='text-2xl text-paragraph'>Hi I&#39;m,</h1>
             <h1 className='text-headline'>Jakub Kowieski</h1>
             <h1 className='text-contrast'>Front-end dev</h1>
           </div>
-          <Image className='' src='/icons/avatar.png' alt='avatar' width={200} height={200} />
-        </section>
+          <Image src='/icons/avatar.png' alt='avatar' width={200} height={200} />
+        </div>
       </main>
+
+      <div className='relative w-full bg-gradient-to-l from-black to-background z-2'>
+        <AboutMe />
+        <Skills />
+      </div>
     </div>
   )
 }
@@ -33,4 +41,15 @@ Page.canvas = (props) => <BackgroundStage />
 
 export async function getStaticProps() {
   return { props: { title: 'Home' } }
+}
+
+{
+  /* <div className='relative flex items-center justify-between w-1/3 h-64'>
+  <div className='text-5xl'>
+    <h1 className='text-paragraph'>Hi I&#39;m,</h1>
+    <h1 className='text-headline'>Jakub Kowieski</h1>
+    <h1 className='text-contrast'>Front-end dev</h1>
+  </div>
+  <Image className='' src='/icons/avatar.png' alt='avatar' width={200} height={200} />
+</div> */
 }
