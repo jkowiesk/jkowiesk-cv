@@ -15,7 +15,6 @@ export default function TypingText({ children }: Props) {
 
   useEffect(() => {
     if (currentIndex < children.length) {
-      console.log(currentIndex)
       const test = setTimeout(() => {
         setCurrentIndex((prevIndex) => prevIndex + 1)
       }, SPEED)

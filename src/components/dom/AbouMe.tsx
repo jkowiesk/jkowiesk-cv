@@ -1,17 +1,44 @@
+/*
+  About Me component which has text animated images changing on hover
+*/
 import Image from 'next/image'
-import { motion, useInView } from 'framer-motion'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import TypingText from './TypingText'
+import { type } from 'os'
+
+type HoveredItems = 'computer' | 'tech' | 'team' | 'challenge'
 
 export default function AboutMe() {
   const [wasInView, setWasInView] = useState(false)
+  const [hoveredName, setHoveredName] = useState<HoveredItems>('computer')
+  const [isMouseInside, setIsMouseInside] = useState(false)
+
+  const [backgroundDivPosition, setBackgroundDivPosition] = useState({ width: 0, y: 0 })
+
+  const handleMouseMove = (event) => {
+    setIsMouseInside(true)
+  }
+  const handleHoverChange = (name: HoveredItems) => {
+    const parentRect = document.getElementById('Description').getBoundingClientRect()
+    const descriptionElement = document.getElementById(name).getBoundingClientRect()
+
+    const width = descriptionElement.width
+    const y = descriptionElement.top - parentRect.top
+
+    setBackgroundDivPosition({
+      width,
+      y,
+    })
+    setHoveredName(name)
+  }
+
   const ref = useRef(null)
   const inView = useInView(ref)
 
   useEffect(() => {
     if (inView && !wasInView) {
       setWasInView(true)
-      console.log('test')
     }
   }, [inView])
 
@@ -26,8 +53,7 @@ export default function AboutMe() {
           onAnimationComplete={(e) => {
             rotate: 0
           }}
-          transition={{ duration: 1 }}
-          whileTap={{ scale: 0.9 }}>
+          transition={{ duration: 1 }}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -38,9 +64,6 @@ export default function AboutMe() {
             <linearGradient id='grad1' x1='0%' x2='100%' y1='0%' y2='0%'>
               <stop offset='0%' stopColor='#647DEE'></stop>
               <stop offset='100%' stopColor='#FC2977'></stop>
-              {/* <stop offset='0%' style='stop-color:#b794f4;stop-opacity:1' />
-                  <stop offset='50%' style='stop-color:#ed64a6;stop-opacity:1' />
-                  <stop offset='100%' style='stop-color:#f56565;stop-opacity:1' /> */}
             </linearGradient>
             <path
               strokeLinecap='round'
@@ -51,27 +74,70 @@ export default function AboutMe() {
       </div>
 
       <div className='flex justify-between h-full mx-16'>
-        <div className='flex flex-col mt-16 text-3xl text-gray-300 w-fit gap-2 h-fit'>
-          <h2>
-            <span className='text-6xl textGradient'>I</span>{' '}
+        <div
+          onMouseEnter={() => setIsMouseInside(true)}
+          onMouseLeave={() => setIsMouseInside(false)}
+          onMouseMove={handleMouseMove}
+          id='Description'
+          className='relative flex flex-col mt-16 text-3xl text-gray-300  gap-8 h-fit'>
+          <motion.div
+            className='absolute w-full h-16 rounded-xl gradient'
+            animate={{
+              y: backgroundDivPosition.y,
+              width: backgroundDivPosition.width,
+              transition: { duration: 0.3, type: 'spring', stiffness: 100 },
+            }}></motion.div>
+          <a
+            onMouseEnter={() => {
+              handleHoverChange('computer')
+            }}
+            id='computer'
+            className='relative px-2 w-fit'>
+            <span className='text-5xl text-contrast'>I</span>{' '}
             {wasInView && <TypingText>am a computer science student</TypingText>}
-          </h2>
-          <h2>
-            <span className='text-6xl textGradient'>I</span>{' '}
+          </a>
+          <a
+            onMouseEnter={() => {
+              handleHoverChange('tech')
+            }}
+            id='tech'
+            className='relative px-2 w-fit'>
+            <span className='text-5xl text-contrast'>I</span>{' '}
             {wasInView && <TypingText>love exploring cutting-edge tech!</TypingText>}
-          </h2>
-          <h2>
-            <span className='text-6xl textGradient'>I</span>{' '}
-            {wasInView && <TypingText>am interested in web development</TypingText>}
-          </h2>
-          <h2>
-            <span className='text-6xl textGradient'>I</span>{' '}
+          </a>
+          <a
+            onMouseEnter={() => {
+              handleHoverChange('team')
+            }}
+            className='relative px-2 w-fit'
+            id='team'>
+            <span className='text-5xl text-contrast'>I</span>{' '}
             {wasInView && <TypingText>honed my skills through many group projects</TypingText>}
-          </h2>
+          </a>
+          <a
+            onMouseEnter={() => {
+              handleHoverChange('challenge')
+            }}
+            id='challenge'
+            className='relative px-2 w-fit'>
+            <span className='text-5xl text-contrast'>I</span>{' '}
+            {wasInView && <TypingText>am fully prepared and equipped to take on any challenge</TypingText>}
+          </a>
         </div>
 
-        <div ref={ref} className='flex-1 h-full grid place-items-center'>
-          <Image src='/img/hello.png' alt='wave' width={400} height={400} />
+        <div ref={ref} className='relative flex-1 h-full grid place-items-center'>
+          <AnimatePresence>
+            <motion.img
+              className='absolute top-0 bottom-0 left-0 right-0 m-auto w-[400px] h-[400px]'
+              key={`/img/${hoveredName}.png`}
+              src={`/img/${hoveredName}.png`}
+              alt='Image'
+              initial={{ opacity: 0 }}
+              animate={{ x: 30, opacity: 1 }}
+              exit={{ x: -30, opacity: 0, transition: { duration: 0.3 } }}
+              transition={{ duration: 1, type: 'spring', stiffness: 100 }}
+            />
+          </AnimatePresence>
         </div>
       </div>
     </section>
