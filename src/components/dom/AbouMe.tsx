@@ -79,7 +79,7 @@ export default function AboutMe() {
           onMouseLeave={() => setIsMouseInside(false)}
           onMouseMove={handleMouseMove}
           id='Description'
-          className='relative flex flex-col mt-16 text-3xl text-gray-300  gap-8 h-fit'>
+          className='relative flex flex-col mt-16 text-3xl text-gray-300 gap-8 h-fit'>
           <motion.div
             className='absolute w-full h-16 rounded-xl gradient'
             animate={{

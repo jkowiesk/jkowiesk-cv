@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import AboutMe from '@/components/dom/AbouMe'
 import Skills from '@/components/dom/Skills'
+import { LastHoveredBallProvider } from '@/contexts/lastHoveredBall'
 
 // Dynamic import is used to prevent a payload when the website starts, that includes threejs, r3f etc..
 // WARNING ! errors might get obfuscated by using dynamic import.
@@ -29,7 +30,9 @@ export default function Page(props) {
 
       <div className='relative w-full bg-gradient-to-l from-black to-background z-2'>
         <AboutMe />
-        <Skills />
+        <LastHoveredBallProvider>
+          <Skills />
+        </LastHoveredBallProvider>
       </div>
     </div>
   )
