@@ -7,6 +7,7 @@ import BouncingScene from '../canvas/BouncingScene'
 import { LastHoveredBallContext } from '@/contexts/lastHoveredBall'
 import { SKILLS } from '@/utils/global'
 import Image from 'next/image'
+import { Skill } from '@/utils/types'
 
 export default function Skills() {
   const [isHover, setIsHover] = useState(false)

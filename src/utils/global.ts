@@ -1,3 +1,5 @@
+import { Skill } from './types'
+
 export const cameraDefault: [number, number, number] = [0, 0.5, 5]
 
 export const portalPosition: [number, number, number] = [0, -0.6, -10]
