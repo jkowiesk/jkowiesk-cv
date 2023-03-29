@@ -107,11 +107,11 @@ export const SKILLS: Skill[] = [
 ]
 
 export const starsToSize = new Map<number, number>([
-  [1, 0.3],
-  [2, 0.4],
-  [3, 0.5],
-  [4, 0.6],
-  [5, 0.7],
+  [1, 0.4],
+  [2, 0.5],
+  [3, 0.6],
+  [4, 0.7],
+  [5, 0.8],
 ])
 
 // pallete used in project
