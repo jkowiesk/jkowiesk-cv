@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { useGraph } from '@react-three/fiber'
 
 export function useSkinnedMeshClone(path) {
+  // @ts-ignore
   const { scene, materials, animations } = useGLTF(path)
   const clonedScene = useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes } = useGraph(clonedScene)
