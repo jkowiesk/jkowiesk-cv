@@ -26,13 +26,16 @@ export default function BouncingScene(props) {
     <Canvas camera={{ fov: 100, near: 0.1, far: 1000, position: [0, 4, -8] }} {...props}>
       <ambientLight intensity={0.1} />
       <directionalLight intensity={1} position={[5, 3, 1]} />
+      {/*
+      @ts-ignore */}
+      <ContactShadows position={[0, -0.49, 0]} scale={10} far={3} blur={3} color={'white'} />
       <BouncingStage />
       <Preload all />
     </Canvas>
   )
 }
 /* eslint-disable react/display-name */
-const BouncingStage = memo(() => {
+const BouncingStage = () => {
   const lastCheck = useRef(0)
 
   const softMaterial = new CANNON.Material('soft')
@@ -40,6 +43,7 @@ const BouncingStage = memo(() => {
 
   const world = useRef<CANNON.World>()
   const [balls, setBalls] = useState<[CANNON.Body, number][]>([])
+  const [numHovering, setNumHovering] = useState<number>(0)
 
   const [matCapTexture] = useMatcapTexture('1B1B1B_999999_575757_747474')
 
@@ -54,6 +58,15 @@ const BouncingStage = memo(() => {
 
   // @ts-ignore
   // useHelper(directionalLight, THREE.DirectionalLightHelper, 1)
+
+  useEffect(() => {
+    const element = document.getElementById('bouncingScene')
+    if (numHovering > 0) {
+      element.style.cursor = 'pointer'
+    } else {
+      element.style.cursor = 'default'
+    }
+  }, [numHovering])
 
   useEffect(() => {
     world.current = new CANNON.World()
@@ -128,9 +141,6 @@ const BouncingStage = memo(() => {
     <>
       {/*
       @ts-ignore */}
-      <ContactShadows position={[0, -0.49, 0]} scale={10} far={3} blur={3} color={'white'} />
-      {/*
-      @ts-ignore */}
       <RoundedBox
         rotation={[Math.PI / 2, 0, 0]}
         position={[0, -1, 0]}
@@ -142,8 +152,8 @@ const BouncingStage = memo(() => {
       </RoundedBox>
 
       {balls.map(([ballBody, skillIdx]) => (
-        <Ball key={skillIdx} ballBody={ballBody} skillIdx={skillIdx} />
+        <Ball key={skillIdx} ballBody={ballBody} skillIdx={skillIdx} setNumHovering={setNumHovering} />
       ))}
     </>
   )
-})
+}

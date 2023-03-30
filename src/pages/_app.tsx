@@ -1,14 +1,22 @@
-import { useRef } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Header from '@/config'
 import Layout from '@/components/dom/Layout'
 import '@/styles/index.css'
-import Scroll from '@/templates/Scroll'
+import { RouterLoading } from '@/components/dom/RouterLoading'
+import { useRouter } from 'next/router'
+import FirstLoading from '@/components/dom/FirstLoading'
 
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true })
 
-export default function App({ Component, pageProps = { title: 'index', isScroll: false } }) {
+export default function App({ Component, pageProps = { title: 'index' } }) {
   const ref = useRef()
+  const router = useRouter()
+
+  const [isLoading, setIsLoading] = useState(true)
+
+  const setLoaded = () => setIsLoading(false)
+
   return (
     <>
       <Header title={pageProps.title} />
@@ -18,11 +26,12 @@ export default function App({ Component, pageProps = { title: 'index', isScroll:
          * Since the event source is now shared, the canvas would block events, we prevent that with pointerEvents: none. */}
         {Component?.canvas && (
           <Scene className='pointer-events-none' eventSource={ref} eventPrefix='client'>
-            {Component.canvas(pageProps)}
+            {Component.canvas({ ...pageProps, setLoaded })}
           </Scene>
         )}
       </Layout>
-      <Component {...pageProps} />
+      {isLoading ? <FirstLoading /> : <Component {...pageProps} />}
+      <RouterLoading />
     </>
   )
 }

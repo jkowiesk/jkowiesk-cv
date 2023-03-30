@@ -1,6 +1,6 @@
 // write a component in which circles would bounce inside it and then when you hover over them they would change color and text would change
 
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useContext, useMemo, useState } from 'react'
 import { BsScrewdriver } from 'react-icons/bs'
 import BouncingScene from '../canvas/BouncingScene'
@@ -13,7 +13,7 @@ export default function Skills() {
   const [isHover, setIsHover] = useState(false)
   const lastHovered = useContext(LastHoveredBallContext)
 
-  const { name, displayName, color, description } = useMemo<Skill>(() => SKILLS[lastHovered], [lastHovered])
+  const { name, displayName, color, description, rating } = useMemo<Skill>(() => SKILLS[lastHovered], [lastHovered])
 
   return (
     <section className='flex flex-col py-14 h-[100vh] px-28'>
@@ -34,7 +34,7 @@ export default function Skills() {
       </div>
 
       <div className='flex justify-between h-full'>
-        <div className='relative w-1/2'>
+        <div id='bouncingScene' className='relative w-1/2'>
           <BouncingScene />
         </div>
         <div className='flex flex-col w-1/2 px-16 py-8'>
@@ -44,7 +44,7 @@ export default function Skills() {
                 key={lastHovered}
                 animate={{ opacity: 1, x: 0 }}
                 initial={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 1 }}
                 style={{ color }}
                 className='text-6xl '>
                 {displayName}
@@ -62,15 +62,50 @@ export default function Skills() {
               key={lastHovered}
               animate={{ opacity: 1, x: 0 }}
               initial={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.5 }}>
-              <Image width={128} height={128} src={`/skills/icons/${name}.png`} alt='image' priority />
+              transition={{ duration: 1 }}
+              className='relative '>
+              <picture>
+                <img className='relative w-auto h-[128px]' src={`/skills/icons/${name}.png`} alt='image' />
+              </picture>
             </motion.span>
           </div>
 
-          <section className='py-12 ml-8'>
-            <h2 className='text-2xl text-contrast'>description: </h2>
-            <p className='text-2xl whitespace-pre-wrap text-paragraph'>{description}</p>
-          </section>
+          <div className='flex flex-col ml-8 gap-8'>
+            <section>
+              <h2 className='pb-2 text-2xl text-contrast'>description: </h2>
+              <motion.p
+                className='text-2xl whitespace-pre-wrap text-paragraph'
+                key={lastHovered}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1 }}>
+                {description}
+              </motion.p>
+            </section>
+
+            <section>
+              <h2 className='pb-2 text-2xl text-contrast'>skill_level: </h2>
+
+              <AnimatePresence>
+                <motion.div
+                  key={lastHovered}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, position: 'absolute' }}
+                  transition={{ duration: 1 }}
+                  className=''>
+                  <SkillBar rating={rating} />
+                </motion.div>
+              </AnimatePresence>
+            </section>
+
+            <section>
+              <h2 className='pb-2 text-2xl text-contrast'>
+                projects: <span className='whitespace-pre-wrap text-headline'>{' {'}</span>
+              </h2>
+              <h2 className='text-2xl text-headline'>{'}'}</h2>
+            </section>
+          </div>
 
           <h1 className='text-6xl text-headline'>{'}'}</h1>
         </div>
@@ -78,6 +113,19 @@ export default function Skills() {
     </section>
   )
 }
+
+const SkillBar = ({ rating }: { rating: number }) => (
+  <svg viewBox='-1 -1 102 12' className=' h-[40px]'>
+    <defs>
+      <linearGradient id='gradient' x1='0%' y1='0%' x2='100%' y2='0%'>
+        <stop offset='0%' stopColor='#647DEE'></stop>
+        <stop offset='100%' stopColor='#FC2977'></stop>
+      </linearGradient>
+    </defs>
+    <rect width='100' height='10' rx='5' ry='5' fill='transparent' stroke='#fffffe' />
+    <rect width={20 * rating} height='10' rx='5' ry='5' fill='url(#gradient)' stroke='#fffffe' />
+  </svg>
+)
 
 const Wrench = () => (
   <svg
@@ -92,11 +140,11 @@ const Wrench = () => (
       <stop offset='100%' stopColor='#FC2977'></stop>
     </linearGradient>
     <path
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
       d='M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z'
     />
-    <path stroke-linecap='round' stroke-linejoin='round' d='M4.867 19.125h.008v.008h-.008v-.008z' />
+    <path strokeLinecap='round' strokeLinejoin='round' d='M4.867 19.125h.008v.008h-.008v-.008z' />
   </svg>
 )
 

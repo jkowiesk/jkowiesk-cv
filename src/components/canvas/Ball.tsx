@@ -1,7 +1,7 @@
 // write a component in which circles would bounce inside it and then when you hover over them they would change color and text would change
 
 import { motion } from 'framer-motion-3d'
-import { forwardRef, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { forwardRef, memo, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 import { ContactShadows, useTexture } from '@react-three/drei'
@@ -11,9 +11,10 @@ import { LastHoveredBallContext, SetLastHoveredBallContext } from '@/contexts/la
 type Props = {
   ballBody: CANNON.Body
   skillIdx: number
+  setNumHovering: any
 }
 
-export default function Ball({ ballBody, skillIdx }: Props) {
+function Ball({ ballBody, skillIdx, setNumHovering }: Props) {
   const ball = useRef<THREE.Mesh>()
   const setLastHovered = useContext(SetLastHoveredBallContext)
   const { color, name, customTexture, rating } = SKILLS[skillIdx]
@@ -31,10 +32,6 @@ export default function Ball({ ballBody, skillIdx }: Props) {
   // @ts-ignore
   const radius = starsToSize.get(rating)
 
-  useEffect(() => {
-    console.log(ballBody)
-  }, [])
-
   useFrame(() => {
     if (ball.current && ballBody) {
       const { x, y, z } = ballBody.position
@@ -51,17 +48,15 @@ export default function Ball({ ballBody, skillIdx }: Props) {
     setLastHovered(skillIdx)
   }, [])
 
-  const onBallUp = useCallback(() => {
-    // make ball bigger and set speed to 0
-  }, [])
-
   return (
     <>
       <motion.mesh
+        whileHover={{ scale: 1.5 }}
         ref={ball}
         position={[-1, -1, -1]}
+        onPointerOver={() => setNumHovering((prev) => prev + 1)}
+        onPointerOut={() => setNumHovering((prev) => prev - 1)}
         onPointerDown={onBallDown}
-        onPointerUp={onBallUp}
         animate={{ x: 0, y: 0, z: 0 }}>
         <sphereGeometry args={[radius, 20, 20]} />
         <meshLambertMaterial color={color} />
@@ -73,3 +68,5 @@ export default function Ball({ ballBody, skillIdx }: Props) {
     </>
   )
 }
+
+export default memo(Ball, (_, __) => true)
