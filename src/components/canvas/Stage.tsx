@@ -15,7 +15,12 @@ import Text from './Text'
 
 const CAMERA_SPEED = 0.08
 
-export default function Stage() {
+type Props = {
+  title: string
+  setLoaded: () => void
+}
+
+export default function Stage({ title, setLoaded }: Props) {
   const portal = useRef<any>()
   const spotLight = useRef<any>()
   const cameraCenter = useRef<{ y: number; z: number }>({ y: cameraDefault[1], z: cameraDefault[2] })
@@ -30,6 +35,10 @@ export default function Stage() {
       router.push('home')
     }
   }, [isRouting])
+
+  useEffect(() => {
+    setLoaded()
+  })
 
   useFrame(({ camera }) => {
     const tempX = camera.position.x
@@ -49,12 +58,9 @@ export default function Stage() {
       mouseY = -0.5
     }
     camera.position.x += (defaultX + mouseX * 6 - tempX) * (CAMERA_SPEED / 4)
-    camera.position.y += (cameraCenter.current.y - mouseY * 1.2 - tempY) * CAMERA_SPEED
 
-    /* if (isCameraCloseToPortal && camera.position.y < 1) {
-      camera.lookAt(lookAtPoint)
-      return
-    } */
+    camera.position.y += (cameraCenter.current.y - mouseY * 0.9 - tempY) * CAMERA_SPEED
+
     camera.lookAt(portal.current.position)
   })
 

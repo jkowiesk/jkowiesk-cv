@@ -9,10 +9,6 @@ export default function TypingText({ children }: Props) {
 
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  /*   useEffect(() => {
-    console.log(children)
-  }, []) */
-
   useEffect(() => {
     if (currentIndex < children.length) {
       const test = setTimeout(() => {
