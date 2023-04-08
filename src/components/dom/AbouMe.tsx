@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import TypingText from './TypingText'
 import { type } from 'os'
+import { scrollToSection } from '@/utils/functions'
 
 type HoveredItems = 'computer' | 'tech' | 'team' | 'challenge'
 
@@ -43,7 +44,7 @@ export default function AboutMe() {
   }, [inView])
 
   return (
-    <section className='flex flex-col py-14 h-[100vh] px-28'>
+    <section className='flex flex-col py-14 h-[100vh] px-28 snap-center'>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           About <span className='textGradient bg-gradient-to-t'>me</span>
@@ -81,7 +82,7 @@ export default function AboutMe() {
           id='Description'
           className='relative flex flex-col mt-16 text-3xl text-gray-300 gap-8 h-fit'>
           <motion.div
-            className='absolute w-full h-16 rounded-xl gradient'
+            className='absolute w-full h-16 rounded-xl gradient bg-gradient-to-r'
             animate={{
               y: backgroundDivPosition.y,
               width: backgroundDivPosition.width,
@@ -101,7 +102,10 @@ export default function AboutMe() {
               handleHoverChange('tech')
             }}
             id='tech'
-            className='relative px-2 w-fit'>
+            onClick={() => {
+              scrollToSection('#skills')
+            }}
+            className='relative px-2 cursor-pointer w-fit'>
             <span className='text-5xl text-contrast'>I</span>{' '}
             {wasInView && <TypingText>love exploring cutting-edge tech!</TypingText>}
           </a>

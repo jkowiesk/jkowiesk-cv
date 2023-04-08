@@ -16,7 +16,7 @@ export default function Skills() {
   const { name, displayName, color, description, rating } = useMemo<Skill>(() => SKILLS[lastHovered], [lastHovered])
 
   return (
-    <section className='flex flex-col py-14 h-[100vh] px-28'>
+    <section id='skills' className='flex flex-col py-14 h-[100vh] px-28'>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           Skil<span className='textGradient bg-gradient-to-t'>ls</span>
@@ -86,17 +86,7 @@ export default function Skills() {
             <section>
               <h2 className='pb-2 text-2xl text-contrast'>skill_level: </h2>
 
-              <AnimatePresence>
-                <motion.div
-                  key={lastHovered}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, position: 'absolute' }}
-                  transition={{ duration: 1 }}
-                  className=''>
-                  <SkillBar rating={rating} />
-                </motion.div>
-              </AnimatePresence>
+              <SkillBar rating={rating} />
             </section>
 
             <section>
@@ -123,7 +113,15 @@ const SkillBar = ({ rating }: { rating: number }) => (
       </linearGradient>
     </defs>
     <rect width='100' height='10' rx='5' ry='5' fill='transparent' stroke='#fffffe' />
-    <rect width={20 * rating} height='10' rx='5' ry='5' fill='url(#gradient)' stroke='#fffffe' />
+    <motion.rect
+      width={20 * rating}
+      height='10'
+      rx='5'
+      ry='5'
+      fill='url(#gradient)'
+      animate={{ width: 20 * rating, transition: { duration: 1, type: 'spring' } }}
+      stroke='#fffffe'
+    />
   </svg>
 )
 

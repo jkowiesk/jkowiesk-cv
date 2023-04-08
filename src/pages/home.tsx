@@ -6,6 +6,7 @@ import Skills from '@/components/dom/Skills'
 import { LastHoveredBallProvider } from '@/contexts/lastHoveredBall'
 import { useEffect, useState } from 'react'
 import Curtain from '@/components/dom/Curtain'
+import Education from '@/components/dom/Education'
 
 // Dynamic import is used to prevent a payload when the website starts, that includes threejs, r3f etc..
 // WARNING ! errors might get obfuscated by using dynamic import.
@@ -42,11 +43,12 @@ export default function Page(props) {
           </div>
         </main>
 
-        <div className='relative w-full bg-gradient-to-l from-black to-background z-2'>
+        <div className='relative w-full bg-gradient-to-l from-black to-background z-2 snap-y'>
           <AboutMe />
           <LastHoveredBallProvider>
             <Skills />
           </LastHoveredBallProvider>
+          <Education />
         </div>
       </div>
     </>
