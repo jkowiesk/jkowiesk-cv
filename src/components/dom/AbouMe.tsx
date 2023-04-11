@@ -105,10 +105,13 @@ export default function AboutMe() {
             onMouseEnter={() => {
               handleHoverChange('team')
             }}
-            className='relative px-2 w-fit'
+            onClick={() => {
+              scrollToSection('#projects')
+            }}
+            className='relative px-2 cursor-pointer w-fit'
             id='team'>
             <span className='text-5xl text-contrast'>I</span>{' '}
-            {wasInView && <TypingText>honed my skills through many group projects</TypingText>}
+            {wasInView && <TypingText>honed my skills through many projects</TypingText>}
           </a>
           <a
             onMouseEnter={() => {
