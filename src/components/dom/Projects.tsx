@@ -106,7 +106,7 @@ export default function Projects() {
                   alt='soundboard'
                 />
               </span>
-              <div className=' w-full bg-sb/30  '>
+              <div className='flex-1 w-full bg-sb/30  '>
                 <p className='p-2 text-headline'>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
               </div>
             </motion.article>
