@@ -52,7 +52,19 @@
     @apply from-purple-secondary to-purple-primary;
   }
 
+  .gradientFlashy {
+    @apply from-flashy-primary to-flashy-secondary;
+  }
+
   .textGradient {
     @apply text-transparent  bg-clip-text gradient;
+  }
+
+  .textGradientFlashy {
+    @apply text-transparent  bg-clip-text gradientFlashy;
+  }
+
+  .word-spacing {
+    word-spacing: 0.2rem;
   }
 }

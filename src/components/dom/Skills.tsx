@@ -6,8 +6,8 @@ import { BsScrewdriver } from 'react-icons/bs'
 import BouncingScene from '../canvas/BouncingScene'
 import { LastHoveredBallContext } from '@/contexts/lastHoveredBall'
 import { SKILLS } from '@/utils/global'
-import Image from 'next/image'
 import { Skill } from '@/utils/types'
+import Next from './Next'
 
 export default function Skills() {
   const [isHover, setIsHover] = useState(false)
@@ -16,7 +16,7 @@ export default function Skills() {
   const { name, displayName, color, description, rating } = useMemo<Skill>(() => SKILLS[lastHovered], [lastHovered])
 
   return (
-    <section id='skills' className='flex flex-col py-14 h-[100vh] px-28'>
+    <section id='skills' className='relative flex flex-col py-14 h-[100vh] px-28'>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           Skil<span className='textGradient bg-gradient-to-t'>ls</span>
@@ -100,6 +100,7 @@ export default function Skills() {
           <h1 className='text-6xl text-headline'>{'}'}</h1>
         </div>
       </div>
+      <Next goTo='#projects'>sth cool I&apos;ve done ?</Next>
     </section>
   )
 }

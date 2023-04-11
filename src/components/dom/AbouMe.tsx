@@ -13,13 +13,9 @@ type HoveredItems = 'computer' | 'tech' | 'team' | 'challenge'
 export default function AboutMe() {
   const [wasInView, setWasInView] = useState(false)
   const [hoveredName, setHoveredName] = useState<HoveredItems>('computer')
-  const [isMouseInside, setIsMouseInside] = useState(false)
 
   const [backgroundDivPosition, setBackgroundDivPosition] = useState({ width: 0, y: 0 })
 
-  const handleMouseMove = (event) => {
-    setIsMouseInside(true)
-  }
   const handleHoverChange = (name: HoveredItems) => {
     const parentRect = document.getElementById('Description').getBoundingClientRect()
     const descriptionElement = document.getElementById(name).getBoundingClientRect()
@@ -37,14 +33,12 @@ export default function AboutMe() {
   const ref = useRef(null)
   const inView = useInView(ref)
 
-  useEffect(() => {
-    if (inView && !wasInView) {
-      setWasInView(true)
-    }
-  }, [inView])
+  if (inView && !wasInView) {
+    setWasInView(true)
+  }
 
   return (
-    <section className='flex flex-col py-14 h-[100vh] px-28 snap-center'>
+    <section className='flex flex-col py-14 h-[100vh] px-28'>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           About <span className='textGradient bg-gradient-to-t'>me</span>
@@ -75,12 +69,7 @@ export default function AboutMe() {
       </div>
 
       <div className='flex justify-between h-full mx-16'>
-        <div
-          onMouseEnter={() => setIsMouseInside(true)}
-          onMouseLeave={() => setIsMouseInside(false)}
-          onMouseMove={handleMouseMove}
-          id='Description'
-          className='relative flex flex-col mt-16 text-3xl text-gray-300 gap-8 h-fit'>
+        <div id='Description' className='relative flex flex-col mt-16 text-3xl text-gray-300 gap-8 h-fit'>
           <motion.div
             className='absolute w-full h-16 rounded-xl gradient bg-gradient-to-r'
             animate={{
@@ -93,7 +82,10 @@ export default function AboutMe() {
               handleHoverChange('computer')
             }}
             id='computer'
-            className='relative px-2 w-fit'>
+            onClick={() => {
+              scrollToSection('#education')
+            }}
+            className='relative px-2 cursor-pointer w-fit'>
             <span className='text-5xl text-contrast'>I</span>{' '}
             {wasInView && <TypingText>am a computer science student</TypingText>}
           </a>
