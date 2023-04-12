@@ -70,7 +70,9 @@ export default function Projects() {
             </motion.span>
             , where you can get to know things about me
           </h3>
-          <Link href='https://github.com/jkowiesk' className='flex items-center justify-center underline group gap-4'>
+          <Link
+            href='https://github.com/jkowiesk'
+            className='flex items-center justify-center mx-auto text-center underline w-fit group gap-4'>
             <p className='text-xl group-hover:underline text-contrast'>and many more on my </p>
             <GithubIcon />
           </Link>
@@ -136,7 +138,7 @@ export default function Projects() {
                   alt='pasty'
                 />
               </span>
-              <div className='flex-none w-full bg-purple-primary/30  '>
+              <div className='flex-none w-full bg-purple-primary/30 '>
                 <p className='p-4 text-headline'>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
               </div>
             </motion.article>

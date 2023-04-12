@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import Curtain from '@/components/dom/Curtain'
 import Education from '@/components/dom/Education'
 import Projects from '@/components/dom/Projects'
+import Contact from '@/components/dom/Contact'
 
 // Dynamic import is used to prevent a payload when the website starts, that includes threejs, r3f etc..
 // WARNING ! errors might get obfuscated by using dynamic import.
@@ -51,6 +52,7 @@ export default function Page(props) {
             <Skills />
           </LastHoveredBallProvider>
           <Projects />
+          <Contact />
         </div>
       </div>
     </>

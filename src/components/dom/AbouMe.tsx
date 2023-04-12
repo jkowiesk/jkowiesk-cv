@@ -118,7 +118,10 @@ export default function AboutMe() {
               handleHoverChange('challenge')
             }}
             id='challenge'
-            className='relative px-2 w-fit'>
+            onClick={() => {
+              scrollToSection('#contact')
+            }}
+            className='relative px-2 cursor-pointer w-fit'>
             <span className='text-5xl text-contrast'>I</span>{' '}
             {wasInView && <TypingText>am fully prepared and equipped to take on any challenge</TypingText>}
           </a>
