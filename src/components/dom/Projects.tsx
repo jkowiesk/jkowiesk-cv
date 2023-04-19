@@ -1,13 +1,16 @@
 // section for my group projects and personal projects
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { Lato } from 'next/font/google'
+import { Lato, Source_Code_Pro } from 'next/font/google'
 import localFont from 'next/font/local'
 import Link from 'next/link'
 import Image from 'next/image'
+import Next from './Next'
+/* import '@fontsource/source-code-pro' */
 
 const lato = Lato({ weight: '400', subsets: ['latin'] })
 const lato_bold = Lato({ weight: '700', subsets: ['latin'] })
+const source_code = Source_Code_Pro({ weight: '400', subsets: ['latin'] })
 const soundboard = localFont({ src: '../../fonts/soundboard.otf', preload: true })
 
 // make a map with all the projects and their hover state
@@ -30,7 +33,7 @@ export default function Projects() {
   }
 
   return (
-    <section id='projects' className='flex flex-col py-14 min-h-[100vh] px-28 '>
+    <section id='projects' className='relative flex flex-col py-14 min-h-[100vh] px-28 '>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           Projec<span className='textGradient bg-gradient-to-t'>ts</span>
@@ -58,7 +61,7 @@ export default function Projects() {
               Soundboard
             </motion.span>{' '}
             which is a simple app that lets you create your own custom Android soundboard with you&apos;re favorite
-            sounds. And of course{' '}
+            sounds. Alternatively{' '}
             <motion.span
               animate={{
                 y: projectsHover.portfolio ? '-15px' : '0',
@@ -66,9 +69,9 @@ export default function Projects() {
               }}
               transition={{ y: { duration: 1 }, rotate: { repeat: Infinity, duration: 1, delay: 1, repeatDelay: 2 } }}
               className={`textGradient bg-gradient-to-t inline-block`}>
-              my&nbsp;portfolio
+              Pack<span className={`text-purple-primary ${source_code.className}`}>IT</span>
             </motion.span>
-            , where you can get to know things about me
+            , a project I&nbsp;developed with my college peers during a hackathon.
           </h3>
           <Link
             href='https://github.com/jkowiesk'
@@ -79,7 +82,7 @@ export default function Projects() {
         </div>
 
         <div className='w-full py-2 grid grid-cols-3 gap-16 grid-rows-[26rem]'>
-          <Link href='https://github.com/jkowiesk/Pasty' className='flex-1 px-8 '>
+          <a href='https://github.com/jkowiesk/Pasty' target='_blank' className='flex-1 px-8 '>
             <motion.article
               onHoverStart={() => setProjectsHover((prev) => ({ ...prev, pasty: true }))}
               onHoverEnd={() => setProjectsHover((prev) => ({ ...prev, pasty: false }))}
@@ -97,11 +100,13 @@ export default function Projects() {
                 />
               </span>
               <div className='flex-none w-full bg-pasty/30  '>
-                <p className='p-4 text-headline'>Lorem ipsum dolor sit amet. </p>
+                <p className='p-4 mx-auto w-fit text-pasty'>
+                  <span className='font-bold text-contrast'>Cool</span> stories{' '}
+                </p>
               </div>
             </motion.article>
-          </Link>
-          <Link href='https://github.com/jkowiesk/SoundboardGenerator' className='flex-1 px-8 '>
+          </a>
+          <a href='https://github.com/jkowiesk/SoundboardGenerator' target='_blank' className='flex-1 px-8 '>
             <motion.article
               onHoverStart={() => setProjectsHover((prev) => ({ ...prev, soundboard: true }))}
               onHoverEnd={() => setProjectsHover((prev) => ({ ...prev, soundboard: false }))}
@@ -119,32 +124,39 @@ export default function Projects() {
                 />
               </span>
               <div className='flex-none w-full bg-sb/30  '>
-                <p className='p-4 text-headline'>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                <p className='p-4 mx-auto w-fit text-sb'>
+                  <span className='font-bold text-contrast'>Cool</span> sounds{' '}
+                </p>
               </div>
             </motion.article>
-          </Link>
-          <Link href='https://github.com/jkowiesk/jkowiesk-cv' className='flex-1 px-8'>
+          </a>
+          <a href='https://github.com/jkowiesk/pack-it' target='_blank' className='flex-1 px-8'>
             <motion.article
               onHoverStart={() => setProjectsHover((prev) => ({ ...prev, portfolio: true }))}
               onHoverEnd={() => setProjectsHover((prev) => ({ ...prev, portfolio: false }))}
               animate={{ background: projectsHover.portfolio ? '#ad54b44c' : '#00000000' }}
               className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl border-purple-primary rounded-2xl'>
-              <h2 className={`p-4 text-purple-secondary text-2xl flex-none w-full h-16 text-center `}>jkowiesk</h2>
-              <span className='flex-1 w-full h-full overflow-hidden rounded-lg border-purple-primary border-y-2 grid place-items-center'>
+              <h2 className={`p-4 text-purple-secondary text-2xl flex-none w-full h-16 text-center `}>
+                Pack<span className={`text-purple-primary ${source_code.className}`}>IT</span>
+              </h2>
+              <span className='relative flex-1 w-full h-full overflow-hidden rounded-lg border-purple-primary border-y-2 grid place-items-center'>
                 <motion.img
                   animate={{ scale: projectsHover.portfolio ? 1.2 : 1, transition: { duration: 2 } }}
-                  src='/screenShots/portfolio.png'
-                  className='object-cover w-full'
+                  src='/screenShots/pack-it.png'
+                  className='absolute object-cover w-full  top-[-30px]'
                   alt='pasty'
                 />
               </span>
               <div className='flex-none w-full bg-purple-primary/30 '>
-                <p className='p-4 text-headline'>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                <p className='p-4 mx-auto w-fit text-purple-secondary'>
+                  <span className='font-bold text-contrast'>Cool</span> packages{' '}
+                </p>
               </div>
             </motion.article>
-          </Link>
+          </a>
         </div>
       </div>
+      <Next goTo='#contact'>want to contact me ?</Next>
     </section>
   )
 }

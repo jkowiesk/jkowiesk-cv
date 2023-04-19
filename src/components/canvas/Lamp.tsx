@@ -36,10 +36,6 @@ export default function Lamp({ position, rotationY }: Props) {
     bodyMesh.material = bodyMaterial
   }, [])
 
-  useEffect(() => {
-    console.log(position)
-  }, [])
-
   return (
     <>
       {/*

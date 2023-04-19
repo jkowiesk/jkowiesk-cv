@@ -4,12 +4,18 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Message } from '@/utils/types'
+import { postMessageDB } from '@/utils/firebase'
 
 export default function Contact() {
   const [buttonHover, setButtonHover] = useState(false)
 
   const { register, handleSubmit } = useForm<Message>()
   const onSubmit: SubmitHandler<Message> = (data) => {
+    try {
+      postMessageDB(data)
+    } catch (e) {
+      console.log('err')
+    }
     const form = document.getElementById('messageForm') as HTMLFormElement
     form.reset()
   }

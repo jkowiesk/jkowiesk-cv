@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import EducationSvg from '../../../public/img/education.svg'
+import Next from './Next'
 
 export default function Education() {
   const [isHover, setIsHover] = useState(false)
@@ -80,6 +81,7 @@ export default function Education() {
           Always was eager to learn, especially computer science
         </h3>
       </div>
+      <Next goTo='#skills'>what can I do ?</Next>
     </section>
   )
 }
