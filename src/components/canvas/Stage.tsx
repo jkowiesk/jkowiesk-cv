@@ -12,6 +12,7 @@ import { ScrollTicker, state } from '@/templates/Scroll'
 import { useRouter } from 'next/router'
 import Lamp from './Lamp'
 import Text from './Text'
+import Portal from './Portal'
 
 const CAMERA_SPEED = 0.08
 
@@ -78,13 +79,10 @@ export default function Stage({ title, setLoaded }: Props) {
       {LAMPS.map(({ position, rotationY }, idx) => (
         <Lamp key={idx} position={position} rotationY={rotationY} />
       ))}
-      <mesh ref={portal} position={[0, -0.3, -10]}>
-        <cylinderGeometry args={[portalRadius, portalRadius, 0.5, 64]} />
-        <meshStandardMaterial side={THREE.DoubleSide} color={'#000000'} />
-      </mesh>
+      <Portal />
       <mesh ref={portal} position={[0, -2, -10]}>
         <boxGeometry args={[1, 1, 5]} />
-        <meshBasicMaterial side={THREE.DoubleSide} color={'#000000'} />
+        <meshBasicMaterial side={THREE.DoubleSide} />
       </mesh>
       <Text />
       <Floor />

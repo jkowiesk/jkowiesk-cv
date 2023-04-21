@@ -2,8 +2,13 @@ import * as THREE from 'three'
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { SphereGeometryProps, useLoader } from '@react-three/fiber'
 import Shader from '@/templates/Shader/Shader'
+import Fogs from './Cloud'
 
-export default function Floor() {
+type Props = {
+  simple?: boolean
+}
+
+export default function Floor({ simple }: Props) {
   const material = useRef<any>()
   const plane = useRef<any>()
   const floor = useRef<any>()
@@ -36,9 +41,12 @@ export default function Floor() {
   }, [floor])
 
   return (
-    <mesh ref={floor} rotation-x={-1} position={[0, 0, -8]}>
-      <planeGeometry ref={plane} args={[64, 64, ROW, ROW]} />
-      <Shader ref={material} />
-    </mesh>
+    <>
+      <mesh ref={floor} rotation-x={-1} position={[0, 0, -8]}>
+        <planeGeometry ref={plane} args={[64, 64, ROW, ROW]} />
+        <Shader ref={material} />
+      </mesh>
+      {!simple && <Fogs />}
+    </>
   )
 }
