@@ -122,16 +122,16 @@ const AnimatedSVG = () => {
         variants={rectVariants}
         initial='initial'
         animate='animate'
-        className='fill-current text-headline'
+        className='text-gray-400 fill-current'
         x='10%'
         y='45%'
         height='15%'
       />
-      <motion.circle className='fill-current text-paragraph' cx='10%' cy='50%' r='10' />
+      <motion.circle className='fill-current text-headline' cx='10%' cy='50%' r='10' />
       <motion.circle
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { delay: 2.5, duration: 0.5 } }}
-        className='fill-current text-paragraph'
+        className='fill-current text-headline'
         cx='90%'
         cy='50%'
         r='10'

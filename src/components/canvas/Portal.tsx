@@ -1,7 +1,7 @@
 import { portalRadius } from '@/utils/global'
 import { Sparkles, useTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { forwardRef, useMemo } from 'react'
+import { ForwardedRef, Ref, forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 
 const protalX = portalRadius - 0.3
@@ -9,12 +9,15 @@ const portalZ = portalRadius - 0.3
 const portalPosition = [0, -0.3, -10]
 const sparklesAmmount = 10
 
-const Portal = forwardRef((props, ref) => {
+const Portal = () => {
   const [portalTexture, portalNormal] = useTexture(['/textures/portal.png', '/textures/portalNormal.png'])
   portalTexture.center = new THREE.Vector2(0.5, 0.5)
+  const portal = useRef<any>()
 
   useFrame(({ clock }) => {
-    portalTexture.rotation += 0.001
+    if (portal.current) {
+      portal.current.rotation.y = clock.getElapsedTime() * 0.1
+    }
   })
 
   // generate sparkles on random positions around the portal
@@ -41,8 +44,6 @@ const Portal = forwardRef((props, ref) => {
     return sparkles
   }, [])
 
-  console.log(sparkles)
-
   return (
     <>
       {sparkles.map((sparkle, i) => (
@@ -51,13 +52,12 @@ const Portal = forwardRef((props, ref) => {
       {/* <Sparkles position={[0, 0, -10]} speed={0.1} color='#7F5AF0' size={1} />
       <Sparkles position={[0, 0, -10]} speed={0.1} color='#7F5AF0' size={1} />
       <Sparkles position={[0, 0, -10]} speed={0.1} color='#7F5AF0' size={1} /> */}
-      <mesh ref={ref} position={portalPosition}>
+      <mesh ref={portal} position={portalPosition}>
         <cylinderGeometry args={[portalRadius, portalRadius, 0.5, 64]} />
         <meshStandardMaterial side={THREE.DoubleSide} map={portalTexture} normalMap={portalNormal} />
       </mesh>
     </>
   )
-})
+}
 
-Portal.displayName = 'Portal'
 export default Portal

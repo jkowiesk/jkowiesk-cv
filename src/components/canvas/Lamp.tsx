@@ -10,22 +10,20 @@ import { background, bodyLampColor, portalPosition, primary, secondary } from '@
 type Props = {
   position: { x: number; y: number; z: number }
   rotationY: number
+  spotLightOffset: [number, number, number]
 }
 
-export default function Lamp({ position, rotationY }: Props) {
+export default function Lamp({ position, rotationY, spotLightOffset }: Props) {
   const spotLight = useRef<any>()
   const lamp = useRef<any>()
   const lampHelper = useRef<any>()
 
   const { x, y, z } = position
-  const spotLightPosition = [-0.04, 1.85, 0.8]
+  const spotLightPosition = [-0.04 + spotLightOffset[0], 1.85 + spotLightOffset[1], 0.7 + spotLightOffset[2]]
   const lampHelperPosition = [spotLightPosition[0], spotLightPosition[1] - 1, spotLightPosition[2]]
 
   const obj = useSkinnedMeshClone('/models/urban_street_light.glb')
   const [glassMesh, bodyMesh] = obj.scene.children[0].children[0].children[0].children[0].children
-  const rand = useMemo(() => {
-    return Math.random()
-  }, [])
 
   useEffect(() => {
     spotLight.current.target = lampHelper.current

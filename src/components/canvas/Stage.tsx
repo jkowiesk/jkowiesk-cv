@@ -76,8 +76,8 @@ export default function Stage({ title, setLoaded }: Props) {
       {VENUSES.map(({ position }, idx) => (
         <Venus key={idx} position={position} />
       ))}
-      {LAMPS.map(({ position, rotationY }, idx) => (
-        <Lamp key={idx} position={position} rotationY={rotationY} />
+      {LAMPS.map(({ position, rotationY, spotLightOffset }, idx) => (
+        <Lamp key={idx} position={position} rotationY={rotationY} spotLightOffset={spotLightOffset} />
       ))}
       <Portal />
       <mesh ref={portal} position={[0, -2, -10]}>

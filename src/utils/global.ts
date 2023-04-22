@@ -13,9 +13,15 @@ export const VENUSES = [
 
 export const DOM_VENUSES = [{ position: { x: -2, y: 0.5, z: 3 } }, { position: { x: 3, y: 1.2, z: 3 } }]
 
-export const LAMPS = [
-  /* { position: { x: -3, y: 2, z: 0 }, rotationY: Math.PI / 2 }, */
-  { position: { x: 2.9, y: 1, z: 1.6 }, rotationY: -Math.PI / 3 },
+type Lamp = {
+  position: { x: number; y: number; z: number }
+  rotationY: number
+  spotLightOffset: [number, number, number]
+}
+
+export const LAMPS: Lamp[] = [
+  { position: { x: -3, y: 2, z: -3 }, rotationY: Math.PI / 2, spotLightOffset: [0.1, 0, 0] },
+  { position: { x: 2.9, y: 1, z: 1.6 }, rotationY: -Math.PI / 3, spotLightOffset: [0, 0, 0] },
 ]
 
 //{ position: { x: 2, y: 2, z: 2 } }

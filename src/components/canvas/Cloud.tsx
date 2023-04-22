@@ -15,20 +15,20 @@ export default function Fogs() {
   return (
     <>
       <mesh rotation-y={Math.PI / 2} position={[-32, 4, -16]}>
-        <planeGeometry args={[32, 10, 1, 1]} />
+        <planeGeometry args={[40, 10, 1, 1]} />
         <meshBasicMaterial color='#7F5AF0' alphaTest={0.001} opacity={0.4} transparent alphaMap={fogTexture} />
       </mesh>
-      <mesh position={[-16, 4, -32]}>
+      <mesh position={[-16, 4, -36]}>
         <planeGeometry args={[32, 10, 1, 1]} />
         <meshBasicMaterial color='#7F5AF0' alphaTest={0.001} opacity={0.4} transparent alphaMap={fogTexture} />
       </mesh>
 
-      <mesh position={[16, 4, -32]}>
+      <mesh position={[16, 4, -36]}>
         <planeGeometry args={[32, 10, 1, 1]} />
         <meshBasicMaterial color='#7F5AF0' alphaTest={0.001} opacity={0.4} transparent alphaMap={fogTexture} />
       </mesh>
       <mesh rotation-y={-Math.PI / 2} position={[32, 4, -16]}>
-        <planeGeometry args={[32, 10, 1, 1]} />
+        <planeGeometry args={[40, 10, 1, 1]} />
         <meshBasicMaterial color='#7F5AF0' alphaTest={0.001} opacity={0.4} transparent alphaMap={fogTexture} />
       </mesh>
     </>
