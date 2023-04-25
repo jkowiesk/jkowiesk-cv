@@ -73,12 +73,12 @@ export default function Projects() {
             </motion.span>
             , a project I&nbsp;developed with my college peers during a hackathon.
           </h3>
-          <Link
+          <a
             href='https://github.com/jkowiesk'
             className='flex items-center justify-center mx-auto text-center underline w-fit group gap-4'>
             <p className='text-xl group-hover:underline text-contrast'>and many more on my </p>
             <GithubIcon />
-          </Link>
+          </a>
         </div>
 
         <div className='w-full py-2 grid grid-cols-3 gap-16 grid-rows-[26rem]'>

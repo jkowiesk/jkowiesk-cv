@@ -28,7 +28,7 @@ export default function Contact() {
         </h1>
         <ContactIcon />
       </div>
-      <section className=' flex flex-1 pt-8 pb-32 w-[64rem]'>
+      <section className=' flex flex-1 pt-8 pb-12 w-[64rem]'>
         <form
           id='messageForm'
           onSubmit={handleSubmit(onSubmit)}
@@ -83,18 +83,6 @@ export default function Contact() {
   )
 }
 
-const SendIcon = () => {
-  return (
-    <svg xmlns='http://www.w3.org/2000/svg' fill='url(#grad1)' className='w-16 h-16' viewBox='0 0 24 24'>
-      <linearGradient id='grad1' x1='0%' x2='100%' y1='0%' y2='0%'>
-        <stop offset='0%' stopColor='#7F5AF0'></stop>
-        <stop offset='100%' stopColor='#647DEE'></stop>
-      </linearGradient>
-      <path d='M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z' />
-    </svg>
-  )
-}
-
 const ContactIcon = () => {
   const [isHover, setIsHover] = useState(false)
   return (
@@ -133,5 +121,17 @@ const ContactIcon = () => {
         </g>
       </g>
     </motion.svg>
+  )
+}
+
+const SendIcon = () => {
+  return (
+    <svg xmlns='http://www.w3.org/2000/svg' fill='url(#grad1)' className='w-16 h-16' viewBox='0 0 24 24'>
+      <linearGradient id='grad1' x1='0%' x2='100%' y1='0%' y2='0%'>
+        <stop offset='0%' stopColor='#7F5AF0'></stop>
+        <stop offset='100%' stopColor='#647DEE'></stop>
+      </linearGradient>
+      <path d='M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z' />
+    </svg>
   )
 }

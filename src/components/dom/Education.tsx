@@ -22,7 +22,7 @@ export default function Education() {
         priority
         src='/img/pigeon.gif'
         alt='Pigeon'
-        className='absolute left-16 bottom-[49vh]'
+        className='absolute left-16 bottom-[29rem]'
         width={90}
         height={90}
       />

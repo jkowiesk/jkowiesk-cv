@@ -44,7 +44,7 @@ export const SKILLS: Skill[] = [
     color: '#61dbfb',
     link: 'https://reactjs.org/',
     rating: 5,
-    projects: [''],
+    projects: ['github.com/jkowiesk/Pasty', 'github.com/jkowiesk/SoundboardGenerator', 'github.com/jkowiesk/Piranhas'],
   },
   {
     name: 'java',
@@ -53,16 +53,16 @@ export const SKILLS: Skill[] = [
     color: '#f89820',
     link: 'https://www.java.com/en/',
     rating: 2,
-    projects: [''],
+    projects: ['github.com/jkowiesk/Calc4U'],
   },
   {
     name: 'rust',
     displayName: 'Rust',
-    description: 'For some time if i write something that has to compile i choose rust.',
+    description: "If something must be fast and safe, it's my go to",
     color: '#dea584',
     link: 'https://www.rust-lang.org/',
     rating: 3,
-    projects: [''],
+    projects: ['https://github.com/jkowiesk/go-in-yew', 'github.com/whisky-rs/whisky-engine'],
   },
   {
     name: 'js',
@@ -71,8 +71,9 @@ export const SKILLS: Skill[] = [
     color: '#f7df1e',
     link: 'https://www.javascript.com/',
     rating: 4,
-    projects: [''],
+    projects: ['github.com/jkowiesk/Pasty', 'github.com/jkowiesk/SoundboardGenerator', 'github.com/jkowiesk/Piranhas'],
   },
+
   {
     name: 'tailwind',
     displayName: 'Tailwind',
@@ -80,7 +81,7 @@ export const SKILLS: Skill[] = [
     color: '#38b2ac',
     link: 'https://tailwindcss.com/',
     rating: 4,
-    projects: [''],
+    projects: ['github.com/jkowiesk/pack-it', 'github.com/jkowiesk/jkowiesk-cv'],
   },
   {
     name: 'next',
@@ -88,9 +89,9 @@ export const SKILLS: Skill[] = [
     description: 'Best full-stack framework there is.',
     color: '#000000',
     link: 'https://nextjs.org/',
-    rating: 5,
+    rating: 4,
     customTexture: true,
-    projects: [''],
+    projects: ['github.com/jkowiesk/jkowiesk-cv', 'github.com/jkowiesk/Pasty'],
   },
   {
     name: 'cpp',
@@ -99,7 +100,25 @@ export const SKILLS: Skill[] = [
     color: '#00599c',
     link: 'https://isocpp.org/',
     rating: 3,
-    projects: [''],
+    projects: ['github.com/jkowiesk/seaside_hotel'],
+  },
+  {
+    name: 'svelte',
+    displayName: 'Svelte',
+    description: "As much as I like React, it's so fast and clean",
+    color: '#FF7700',
+    link: 'https://svelte.dev/',
+    rating: 2,
+    projects: ['github.com/jkowiesk/pack-it'],
+  },
+  {
+    name: 'three',
+    displayName: 'Three.js',
+    description: '3D graphics in web, what can u want more ?',
+    color: '#fffffe',
+    link: 'https://threejs.org/',
+    rating: 3,
+    projects: ['github.com/jkowiesk/pack-it', 'github.com/jkowiesk/jkowiesk-cv'],
   },
   {
     name: 'python',
@@ -108,7 +127,7 @@ export const SKILLS: Skill[] = [
     color: '#3776ab',
     link: 'https://www.python.org/',
     rating: 3,
-    projects: [''],
+    projects: ['github.com/jkowiesk/WSI'],
   },
 ]
 
