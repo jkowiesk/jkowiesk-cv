@@ -59,12 +59,7 @@ export default function Education() {
         <h1 className='text-5xl text-headline'>
           Educati<span className='textGradient bg-gradient-to-t'>on</span>
         </h1>
-        <motion.span
-          whileHover={{ rotate: [0, -20, 20, 0] }}
-          onAnimationComplete={(e) => {
-            rotate: 0
-          }}
-          transition={{ duration: 1 }}>
+        <motion.span whileHover={{ x: [0, -10, 10, 0] }} transition={{ duration: 1 }}>
           <Hat />
         </motion.span>
       </div>

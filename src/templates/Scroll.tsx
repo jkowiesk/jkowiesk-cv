@@ -25,7 +25,7 @@ export default function Scroll({ children }) {
     const lenis = new Lenis({
       wrapper: wrapper.current,
       content: content.current,
-      duration: 12,
+      duration: 14,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'both',

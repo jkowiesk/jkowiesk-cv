@@ -10,15 +10,10 @@ import Education from '@/components/dom/Education'
 import Projects from '@/components/dom/Projects'
 import Contact from '@/components/dom/Contact'
 import Footer from '@/components/dom/Footer'
-
-// Dynamic import is used to prevent a payload when the website starts, that includes threejs, r3f etc..
-// WARNING ! errors might get obfuscated by using dynamic import.
-// If something goes wrong go back to a static import to show the error.
-// https://github.com/pmndrs/react-three-next/issues/49
+import { scrollToSection } from '@/utils/functions'
 
 const BackgroundStage = dynamic(() => import('@/components/canvas/BackgroundStage'), { ssr: false })
 
-// Dom components go here
 export default function Page(props) {
   const [isCurtainOpen, setIsCurtainOpen] = useState(true)
 
@@ -44,6 +39,13 @@ export default function Page(props) {
             </div>
             <Image src='/icons/avatar.png' alt='avatar' width={200} height={200} />
           </div>
+          <a
+            onClick={() => {
+              scrollToSection('#about-me')
+            }}
+            className='fixed left-0 right-0 mx-auto cursor-pointer bottom-12 w-fit group'>
+            <ArrowDown />
+          </a>
         </main>
 
         <div className='relative flex flex-col w-full bg-gradient-to-l from-black to-background z-2 gap-32'>
@@ -61,21 +63,31 @@ export default function Page(props) {
   )
 }
 
-// Canvas components go here
-// It will receive same props as the Page component (from getStaticProps, etc.)
 Page.canvas = (props) => <BackgroundStage {...props} />
 
 export async function getStaticProps() {
   return { props: { title: 'Home' } }
 }
 
-{
-  /* <div className='relative flex items-center justify-between w-1/3 h-64'>
-  <div className='text-5xl'>
-    <h1 className='text-paragraph'>Hi I&#39;m,</h1>
-    <h1 className='text-headline'>Jakub Kowieski</h1>
-    <h1 className='text-contrast'>Front-end dev</h1>
-  </div>
-  <Image className='' src='/icons/avatar.png' alt='avatar' width={200} height={200} />
-</div> */
+const ArrowDown = () => {
+  return (
+    <motion.svg
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      xmlns='http://www.w3.org/2000/svg'
+      className='w-24 h-24 mx-auto  text-paragraph group-hover:text-headline'
+      initial={{ y: -10 }}
+      animate={{ y: 10 }}
+      transition={{
+        duration: 1.5,
+        repeat: Infinity,
+        repeatType: 'mirror',
+      }}>
+      <motion.path d='M19.5 9L12 16.5L4.5 9' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
+      <motion.path d='M19.5 15L12 22.5L4.5 15' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
+      <motion.path d='M19.5 3L12 10.5L4.5 3' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
+      <motion.path d='M19.5 9L12 16.5L4.5 9' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
+    </motion.svg>
+  )
 }

@@ -3,7 +3,7 @@
 */
 import Image from 'next/image'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import TypingText from './TypingText'
 import { type } from 'os'
 import { scrollToSection } from '@/utils/functions'
@@ -38,7 +38,7 @@ export default function AboutMe() {
   }
 
   return (
-    <section className='flex flex-col py-14 h-[100vh] px-28'>
+    <section id='about-me' className='flex flex-col py-14 h-[100vh] px-28'>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           About <span className='textGradient bg-gradient-to-t'>me</span>

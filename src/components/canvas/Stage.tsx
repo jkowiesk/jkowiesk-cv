@@ -1,12 +1,11 @@
 import * as THREE from 'three'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import Shader from '@/templates/Shader/Shader'
+import { useEffect, useRef, useState } from 'react'
 import Floor from './Floor'
 import { Sun, SunEnvironment } from './Sun'
 import Venus from './Venus'
-import { CameraControls, Environment, SpotLight, Stars, useHelper } from '@react-three/drei'
+import { Environment, Stars } from '@react-three/drei'
 import useMouse from '@/hooks/useMouse'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import { LAMPS, VENUSES, cameraDefault, portalPosition, portalRadius } from '@/utils/global'
 import { ScrollTicker, state } from '@/templates/Scroll'
 import { useRouter } from 'next/router'
@@ -23,10 +22,8 @@ type Props = {
 
 export default function Stage({ title, setLoaded }: Props) {
   const portal = useRef<any>()
-  const spotLight = useRef<any>()
   const cameraCenter = useRef<{ y: number; z: number }>({ y: cameraDefault[1], z: cameraDefault[2] })
 
-  const lookAtPoint = useMemo(() => new THREE.Vector3(portalPosition[0], -3, portalPosition[2]), [])
   let { mouseX, mouseY } = useMouse()
   const router = useRouter()
   const [isRouting, setIsRouting] = useState<boolean>(false)
@@ -49,7 +46,7 @@ export default function Stage({ title, setLoaded }: Props) {
     const isCameraCloseToPortal = camera.position.z < portalPosition[2] + portalRadius
 
     if (isCameraCloseToPortal) {
-      if (camera.position.y < 0.1) {
+      if (camera.position.y < 0.15) {
         camera.position.y = -2
         setIsRouting(true)
       }
