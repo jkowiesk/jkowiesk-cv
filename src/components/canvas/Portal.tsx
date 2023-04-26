@@ -2,6 +2,7 @@ import { portalRadius } from '@/utils/global'
 import { Sparkles, useTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { ForwardedRef, Ref, forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react'
+import { BsDashSquare } from 'react-icons/bs'
 import * as THREE from 'three'
 
 const protalX = portalRadius - 0.3
@@ -44,14 +45,15 @@ const Portal = () => {
     return sparkles
   }, [])
 
+  // prettier-ignore
   return (
     <>
-      {sparkles.map((sparkle, i) => (
-        <Sparkles key={i} position={sparkle} speed={0.5} color='#647DEE' size={2} noise={1} count={40} />
-      ))}
-      {/* <Sparkles position={[0, 0, -10]} speed={0.1} color='#7F5AF0' size={1} />
-      <Sparkles position={[0, 0, -10]} speed={0.1} color='#7F5AF0' size={1} />
-      <Sparkles position={[0, 0, -10]} speed={0.1} color='#7F5AF0' size={1} /> */}
+      {sparkles.map((sparkle, i) => {
+        {/*
+        @ts-ignore */}
+        return <Sparkles key={i} position={sparkle} speed={0.5} color='#647DEE' size={2} noise={1} count={40} />
+      })}
+
       <mesh ref={portal} position={portalPosition}>
         <cylinderGeometry args={[portalRadius, portalRadius, 0.5, 64]} />
         <meshStandardMaterial side={THREE.DoubleSide} map={portalTexture} normalMap={portalNormal} />

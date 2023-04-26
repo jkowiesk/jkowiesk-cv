@@ -24,8 +24,6 @@ export const LAMPS: Lamp[] = [
   { position: { x: 2.9, y: 1, z: 1.6 }, rotationY: -Math.PI / 3, spotLightOffset: [0, 0, 0] },
 ]
 
-//{ position: { x: 2, y: 2, z: 2 } }
-
 export const defaultSkill: Skill = {
   name: 'test',
   displayName: 'test',
@@ -62,7 +60,7 @@ export const SKILLS: Skill[] = [
     color: '#dea584',
     link: 'https://www.rust-lang.org/',
     rating: 3,
-    projects: ['https://github.com/jkowiesk/go-in-yew', 'github.com/whisky-rs/whisky-engine'],
+    projects: ['github.com/jkowiesk/go-in-yew', 'github.com/whisky-rs/whisky-engine'],
   },
   {
     name: 'js',
@@ -114,7 +112,7 @@ export const SKILLS: Skill[] = [
   {
     name: 'three',
     displayName: 'Three.js',
-    description: '3D graphics in web, what can u want more ?',
+    description: '3D graphics in web, what more could you want ?',
     color: '#fffffe',
     link: 'https://threejs.org/',
     rating: 3,

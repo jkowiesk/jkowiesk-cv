@@ -41,8 +41,8 @@ export default function Projects() {
         <ProjectIcon />
       </div>
 
-      <div className='flex flex-col items-center justify-between flex-1 w-full h-full'>
-        <div>
+      <div className='flex flex-col items-center justify-between flex-1 w-full h-full gap-16'>
+        <div className=''>
           <h3 className='flex-none p-4 text-2xl text-center text-gray-300 w-[70ch] leading-[3rem] word-spacing'>
             <motion.span
               animate={{ y: projectsHover.pasty ? '-15px' : '0', rotate: projectsHover.pasty ? [0, -10, 10, 0] : 0 }}
@@ -81,17 +81,17 @@ export default function Projects() {
           </a>
         </div>
 
-        <div className='w-full py-2 grid grid-cols-3 gap-16 grid-rows-[26rem]'>
-          <a href='https://github.com/jkowiesk/Pasty' target='_blank' className='flex-1 px-8 '>
+        <div className='flex-1 w-full grid grid-cols-3 gap-16 grid-rows-[26rem]'>
+          <a href='https://github.com/jkowiesk/Pasty' target='_blank' className='px-8 '>
             <motion.article
               onHoverStart={() => setProjectsHover((prev) => ({ ...prev, pasty: true }))}
               onHoverEnd={() => setProjectsHover((prev) => ({ ...prev, pasty: false }))}
               animate={{ background: projectsHover.pasty ? '#f7bf4f4c' : '#00000000' }}
-              className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl border-pasty rounded-2xl'>
+              className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl min-w-[23rem] border-pasty rounded-2xl'>
               <h2 className={`p-4 text-yellow-600 text-2xl flex-none w-full h-16 text-center ${lato_bold.className}`}>
                 P A S T Y
               </h2>
-              <span className=' flex-1 w-full h-full overflow-hidden rounded-lg border-pasty border-y-2 grid place-items-center'>
+              <span className=' flex-1 w-full overflow-hidden rounded-lg border-pasty border-y-2 grid place-items-center'>
                 <motion.img
                   animate={{ scale: projectsHover.pasty ? 1.2 : 1, transition: { duration: 2 } }}
                   src='/screenShots/pasty.png'
@@ -106,12 +106,12 @@ export default function Projects() {
               </div>
             </motion.article>
           </a>
-          <a href='https://github.com/jkowiesk/SoundboardGenerator' target='_blank' className='flex-1 px-8 '>
+          <a href='https://github.com/jkowiesk/SoundboardGenerator' target='_blank' className='px-8'>
             <motion.article
               onHoverStart={() => setProjectsHover((prev) => ({ ...prev, soundboard: true }))}
               onHoverEnd={() => setProjectsHover((prev) => ({ ...prev, soundboard: false }))}
               animate={{ background: projectsHover.soundboard ? '#dd4c354c' : '#00000000' }}
-              className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl border-sb rounded-2xl'>
+              className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl min-w-[23rem] border-sb rounded-2xl'>
               <h2 className={`p-4 text-red-600 text-2xl flex-none w-full h-16 text-center ${soundboard.className}`}>
                 Soundboard
               </h2>
@@ -130,12 +130,12 @@ export default function Projects() {
               </div>
             </motion.article>
           </a>
-          <a href='https://github.com/jkowiesk/pack-it' target='_blank' className='flex-1 px-8'>
+          <a href='https://github.com/jkowiesk/pack-it' target='_blank' className='px-8'>
             <motion.article
               onHoverStart={() => setProjectsHover((prev) => ({ ...prev, portfolio: true }))}
               onHoverEnd={() => setProjectsHover((prev) => ({ ...prev, portfolio: false }))}
               animate={{ background: projectsHover.portfolio ? '#ad54b44c' : '#00000000' }}
-              className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl border-purple-primary rounded-2xl'>
+              className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl min-w-[23rem] border-purple-primary rounded-2xl'>
               <h2 className={`p-4 text-purple-secondary text-2xl flex-none w-full h-16 text-center `}>
                 Pack<span className={`text-purple-primary ${source_code.className}`}>IT</span>
               </h2>
@@ -143,7 +143,7 @@ export default function Projects() {
                 <motion.img
                   animate={{ scale: projectsHover.portfolio ? 1.2 : 1, transition: { duration: 2 } }}
                   src='/screenShots/pack-it.png'
-                  className='absolute object-cover w-full  top-[-30px]'
+                  className='absolute object-cover w-full top-[-30px]'
                   alt='pasty'
                 />
               </span>
