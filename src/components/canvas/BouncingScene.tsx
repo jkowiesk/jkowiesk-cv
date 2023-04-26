@@ -1,11 +1,9 @@
 // scene written with r3f and drei (react-three-fiber and react-three-drei) it has floor and bouncing balls when you click over them they , stops ball and camera centers on the ball that
 import * as THREE from 'three'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { ContactShadows, OrbitControls, Preload, RoundedBox, useHelper, useMatcapTexture } from '@react-three/drei'
-import { SKILLS, cameraDefault, starsToSize } from '@/utils/global'
-import { memo, useCallback, useEffect, useRef, useState } from 'react'
-import { useRouter } from 'next/router'
-import { useTexture } from '@react-three/drei'
+import { ContactShadows, Preload, RoundedBox, useMatcapTexture } from '@react-three/drei'
+import { SKILLS, starsToSize } from '@/utils/global'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import * as CANNON from 'cannon'
 import Ball from './Ball'
 
@@ -47,17 +45,7 @@ const BouncingStage = () => {
 
   const [matCapTexture] = useMatcapTexture('1B1B1B_999999_575757_747474')
 
-  /*   const floorTexture = useTexture('/square2.png')
-  floorTexture.wrapS = THREE.RepeatWrapping
-  floorTexture.wrapT = THREE.RepeatWrapping
-  floorTexture.repeat.set(2, 2) */
-
-  /* const lookPoint = useMemo(() => new THREE.Vector3([0, 0, 0]), []) */
-
   const directionalLight = useRef<THREE.DirectionalLight>()
-
-  // @ts-ignore
-  // useHelper(directionalLight, THREE.DirectionalLightHelper, 1)
 
   useEffect(() => {
     const element = document.getElementById('bouncingScene')
@@ -72,7 +60,6 @@ const BouncingStage = () => {
     world.current = new CANNON.World()
     const floorBody = new CANNON.Body()
     const floorShape = new CANNON.Plane()
-    // make floor position [0, 0, 0]
 
     const softHardContactMaterial = new CANNON.ContactMaterial(hardMaterial, softMaterial, {
       friction: 0,

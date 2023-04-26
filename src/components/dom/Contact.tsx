@@ -1,6 +1,6 @@
 // contact component
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Message } from '@/utils/types'
@@ -8,27 +8,42 @@ import { postMessageDB } from '@/utils/firebase'
 
 export default function Contact() {
   const [buttonHover, setButtonHover] = useState(false)
+  const arrow = useRef<HTMLButtonElement>(null)
+  const formSection = useRef<HTMLDivElement>(null)
 
   const { register, handleSubmit } = useForm<Message>()
-  const onSubmit: SubmitHandler<Message> = (data) => {
-    try {
-      postMessageDB(data)
-    } catch (e) {
-      console.log('err')
+  const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState(false)
+  const height = useRef(0)
+  const onSubmit: SubmitHandler<Message> = async (data) => {
+    const arrowRect = arrow.current?.getBoundingClientRect()
+    const formRect = formSection.current?.getBoundingClientRect()
+    const distance = arrowRect.y - formRect.y
+
+    height.current = arrowRect.y - 96
+    const result = await postMessageDB(data)
+    if (result.code == 200) {
+      setSubmitted(true)
+    } else {
+      setError(true)
     }
     const form = document.getElementById('messageForm') as HTMLFormElement
     form.reset()
   }
 
+  /* useEffect(() => {
+    setSubmitted(false)
+  }) */
+
   return (
-    <section id='contact' className='flex flex-col py-14 min-h-[100vh] px-28 '>
+    <section ref={formSection} id='contact' className='relative flex flex-col py-14 min-h-[100vh] px-28'>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           Contact <span className='textGradient bg-gradient-to-t'>me</span>
         </h1>
         <ContactIcon />
       </div>
-      <section className=' flex flex-1 pt-8 pb-12 w-[64rem]'>
+      <section className='flex flex-1 pt-8 pb-12 w-[64rem]'>
         <form
           id='messageForm'
           onSubmit={handleSubmit(onSubmit)}
@@ -36,6 +51,7 @@ export default function Contact() {
           <div className='flex flex-col w-full h-24 gap-2 col-span-2 lg:col-span-1'>
             <label className='text-xl text-headline'>Full name</label>
             <input
+              required
               className='flex-1 w-full px-2 text-lg bg-gray-900 border-b-4 border-[1px] text-headline rounded-tr-xl rounded-bl-xl rounded-md border-flashy-secondary'
               {...register('fullName')}
             />
@@ -43,6 +59,7 @@ export default function Contact() {
           <div className='flex flex-col w-full h-24 gap-2 col-span-2 lg:col-span-1'>
             <label className='text-xl text-headline'>Last name</label>
             <input
+              required
               className='flex-1 w-full px-2 text-lg bg-gray-900 border-b-4 border-[1px] text-headline rounded-tr-xl rounded-bl-xl rounded-md border-flashy-secondary'
               {...register('lastName')}
             />
@@ -51,14 +68,17 @@ export default function Contact() {
           <div className='flex flex-col w-full h-24 gap-2 col-span-2 lg:col-span-1'>
             <label className='text-xl text-headline'>Email</label>
             <input
+              required
               type='email'
-              className='flex-1 w-full px-2 text-lg bg-gray-900 border-b-4   invalid:border-red-100 border-[1px] text-headline rounded-tr-xl rounded-bl-xl rounded-md border-flashy-secondary'
+              className='flex-1 w-full px-2 text-lg bg-gray-900 border-b-4  invalid:border-red-100 border-[1px] text-headline rounded-tr-xl rounded-bl-xl rounded-md border-flashy-secondary'
               {...register('email')}
             />
           </div>
           <motion.button
             onHoverStart={() => setButtonHover(true)}
             onHoverEnd={() => setButtonHover(false)}
+            animate={{ x: submitted ? '100vw' : 0, transition: { duration: 3, ease: 'easeInOut' } }}
+            ref={arrow}
             type='submit'
             className='relative self-end order-last w-16 h-16 col-span-2 lg:col-span-1 lg:mr-16 justify-self-end group lg:order-none'>
             <span className='sr-only'></span>
@@ -73,12 +93,44 @@ export default function Contact() {
           <div className='flex flex-col w-full h-full col-span-2 gap-2'>
             <label className='text-xl text-headline'>Message</label>
             <textarea
+              required
               className='flex-1 w-full px-2 text-lg bg-gray-900 resize-none border-[2px] text-headline rounded-md border-purple-secondary'
               {...register('message')}
             />
           </div>
         </form>
       </section>
+
+      {submitted && (
+        <motion.div
+          initial={{ opacity: 0, x: '100%' }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 1.8 }}
+          style={{ top: height.current }}
+          className={`absolute right-0 h-64 w-64 bg-contrast rounded-l-full`}>
+          <div className='flex flex-col justify-around h-full pt-12 pb-16 pl-12'>
+            <h1 className='text-xl text-headline'>Message sent!</h1>
+            <p className='text-lg text-bacground'>I will get back to you as soon as possible.</p>
+          </div>
+        </motion.div>
+      )}
+
+      {error && (
+        <motion.div
+          initial={{ opacity: 0, x: '100%' }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1 }}
+          style={{ top: height.current }}
+          className={`absolute right-0 h-64 w-64 bg-[#ed4337] rounded-l-full`}>
+          <div className='flex flex-col justify-around h-full pt-12 pb-16 pl-14'>
+            <h1 className='text-xl text-headline'>Message lost!</h1>
+            <p className='text-md text-bacground'>
+              For some reason message <br />
+              didn&apos;t came through. <br /> <span className='relative top-4'>Try again later</span>
+            </p>
+          </div>
+        </motion.div>
+      )}
     </section>
   )
 }

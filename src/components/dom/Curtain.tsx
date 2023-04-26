@@ -6,7 +6,7 @@ export default function Curtain() {
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
-      transition={{ duration: 2 }}
+      transition={{ duration: 3 }}
       className='fixed z-10 bg-black w-[100vw] h-[100vh]'></motion.div>
   )
 }

@@ -20,7 +20,7 @@ type Lamp = {
 }
 
 export const LAMPS: Lamp[] = [
-  { position: { x: -3, y: 2, z: -3 }, rotationY: Math.PI / 2, spotLightOffset: [0.1, 0, 0] },
+  { position: { x: -3, y: 2, z: -3 }, rotationY: Math.PI / 2, spotLightOffset: [0.1, 0, 0.05] },
   { position: { x: 2.9, y: 1, z: 1.6 }, rotationY: -Math.PI / 3, spotLightOffset: [0, 0, 0] },
 ]
 
