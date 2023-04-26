@@ -6,19 +6,16 @@ import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import TypingText from './TypingText'
 import { type } from 'os'
+import { scrollToSection } from '@/utils/functions'
 
 type HoveredItems = 'computer' | 'tech' | 'team' | 'challenge'
 
 export default function AboutMe() {
   const [wasInView, setWasInView] = useState(false)
   const [hoveredName, setHoveredName] = useState<HoveredItems>('computer')
-  const [isMouseInside, setIsMouseInside] = useState(false)
 
   const [backgroundDivPosition, setBackgroundDivPosition] = useState({ width: 0, y: 0 })
 
-  const handleMouseMove = (event) => {
-    setIsMouseInside(true)
-  }
   const handleHoverChange = (name: HoveredItems) => {
     const parentRect = document.getElementById('Description').getBoundingClientRect()
     const descriptionElement = document.getElementById(name).getBoundingClientRect()
@@ -36,11 +33,9 @@ export default function AboutMe() {
   const ref = useRef(null)
   const inView = useInView(ref)
 
-  useEffect(() => {
-    if (inView && !wasInView) {
-      setWasInView(true)
-    }
-  }, [inView])
+  if (inView && !wasInView) {
+    setWasInView(true)
+  }
 
   return (
     <section className='flex flex-col py-14 h-[100vh] px-28'>
@@ -74,14 +69,9 @@ export default function AboutMe() {
       </div>
 
       <div className='flex justify-between h-full mx-16'>
-        <div
-          onMouseEnter={() => setIsMouseInside(true)}
-          onMouseLeave={() => setIsMouseInside(false)}
-          onMouseMove={handleMouseMove}
-          id='Description'
-          className='relative flex flex-col mt-16 text-3xl text-gray-300 gap-8 h-fit'>
+        <div id='Description' className='relative flex flex-col mt-16 text-3xl text-gray-300 gap-8 h-fit'>
           <motion.div
-            className='absolute w-full h-16 rounded-xl gradient'
+            className='absolute w-full h-16 rounded-xl gradient bg-gradient-to-r'
             animate={{
               y: backgroundDivPosition.y,
               width: backgroundDivPosition.width,
@@ -92,7 +82,10 @@ export default function AboutMe() {
               handleHoverChange('computer')
             }}
             id='computer'
-            className='relative px-2 w-fit'>
+            onClick={() => {
+              scrollToSection('#education')
+            }}
+            className='relative px-2 cursor-pointer w-fit'>
             <span className='text-5xl text-contrast'>I</span>{' '}
             {wasInView && <TypingText>am a computer science student</TypingText>}
           </a>
@@ -101,7 +94,10 @@ export default function AboutMe() {
               handleHoverChange('tech')
             }}
             id='tech'
-            className='relative px-2 w-fit'>
+            onClick={() => {
+              scrollToSection('#skills')
+            }}
+            className='relative px-2 cursor-pointer w-fit'>
             <span className='text-5xl text-contrast'>I</span>{' '}
             {wasInView && <TypingText>love exploring cutting-edge tech!</TypingText>}
           </a>
@@ -109,17 +105,23 @@ export default function AboutMe() {
             onMouseEnter={() => {
               handleHoverChange('team')
             }}
-            className='relative px-2 w-fit'
+            onClick={() => {
+              scrollToSection('#projects')
+            }}
+            className='relative px-2 cursor-pointer w-fit'
             id='team'>
             <span className='text-5xl text-contrast'>I</span>{' '}
-            {wasInView && <TypingText>honed my skills through many group projects</TypingText>}
+            {wasInView && <TypingText>honed my skills through many projects</TypingText>}
           </a>
           <a
             onMouseEnter={() => {
               handleHoverChange('challenge')
             }}
             id='challenge'
-            className='relative px-2 w-fit'>
+            onClick={() => {
+              scrollToSection('#contact')
+            }}
+            className='relative px-2 cursor-pointer w-fit'>
             <span className='text-5xl text-contrast'>I</span>{' '}
             {wasInView && <TypingText>am fully prepared and equipped to take on any challenge</TypingText>}
           </a>

@@ -8,3 +8,15 @@ export type Skill = {
   customTexture?: boolean
   projects: string[]
 }
+
+export type Message = {
+  fullName: string
+  lastName: string
+  email: string
+  message: string
+}
+
+export type ReturnCode = {
+  code: number
+  message: string
+}

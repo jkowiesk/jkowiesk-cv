@@ -1,22 +1,25 @@
 // write a component in which circles would bounce inside it and then when you hover over them they would change color and text would change
 
 import { AnimatePresence, motion } from 'framer-motion'
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { BsScrewdriver } from 'react-icons/bs'
 import BouncingScene from '../canvas/BouncingScene'
 import { LastHoveredBallContext } from '@/contexts/lastHoveredBall'
 import { SKILLS } from '@/utils/global'
-import Image from 'next/image'
 import { Skill } from '@/utils/types'
+import Next from './Next'
 
 export default function Skills() {
   const [isHover, setIsHover] = useState(false)
   const lastHovered = useContext(LastHoveredBallContext)
 
-  const { name, displayName, color, description, rating } = useMemo<Skill>(() => SKILLS[lastHovered], [lastHovered])
+  const { name, displayName, color, description, rating, projects } = useMemo<Skill>(
+    () => SKILLS[lastHovered],
+    [lastHovered],
+  )
 
   return (
-    <section className='flex flex-col py-14 h-[100vh] px-28'>
+    <section id='skills' className='relative flex flex-col py-14 h-[100vh] px-28'>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           Skil<span className='textGradient bg-gradient-to-t'>ls</span>
@@ -45,7 +48,7 @@ export default function Skills() {
                 animate={{ opacity: 1, x: 0 }}
                 initial={{ opacity: 0, x: -20 }}
                 transition={{ duration: 1 }}
-                style={{ color }}
+                style={{ color: color !== '#000000' ? color : 'white' }}
                 className='text-6xl '>
                 {displayName}
               </motion.span>
@@ -70,7 +73,7 @@ export default function Skills() {
             </motion.span>
           </div>
 
-          <div className='flex flex-col ml-8 gap-8'>
+          <div className='relative flex flex-col ml-8 gap-8'>
             <section>
               <h2 className='pb-2 text-2xl text-contrast'>description: </h2>
               <motion.p
@@ -86,30 +89,35 @@ export default function Skills() {
             <section>
               <h2 className='pb-2 text-2xl text-contrast'>skill_level: </h2>
 
-              <AnimatePresence>
-                <motion.div
-                  key={lastHovered}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, position: 'absolute' }}
-                  transition={{ duration: 1 }}
-                  className=''>
-                  <SkillBar rating={rating} />
-                </motion.div>
-              </AnimatePresence>
+              <SkillBar rating={rating} />
             </section>
 
             <section>
               <h2 className='pb-2 text-2xl text-contrast'>
-                projects: <span className='whitespace-pre-wrap text-headline'>{' {'}</span>
+                projects: <span className='whitespace-pre-wrap text-headline'>{' ['}</span>
               </h2>
-              <h2 className='text-2xl text-headline'>{'}'}</h2>
+              <div className='ml-8'>
+                {projects.map((project, idx) => (
+                  <a key={idx} href={`https://${project}`} target='_blank' className='underline  w-fit group'>
+                    <motion.p
+                      key={lastHovered}
+                      animate={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, x: 20 }}
+                      transition={{ duration: 1 }}
+                      className='text-lg group-hover:underline underline-contrast text-paragraph w-fit'>
+                      {project}
+                    </motion.p>
+                  </a>
+                ))}
+              </div>
+              <h2 className='text-2xl text-headline'>{']'}</h2>
             </section>
           </div>
 
-          <h1 className='text-6xl text-headline'>{'}'}</h1>
+          <motion.h1 className='text-6xl text-headline'>{'}'}</motion.h1>
         </div>
       </div>
+      <Next goTo='#projects'>sth cool I&apos;ve done ?</Next>
     </section>
   )
 }
@@ -123,7 +131,15 @@ const SkillBar = ({ rating }: { rating: number }) => (
       </linearGradient>
     </defs>
     <rect width='100' height='10' rx='5' ry='5' fill='transparent' stroke='#fffffe' />
-    <rect width={20 * rating} height='10' rx='5' ry='5' fill='url(#gradient)' stroke='#fffffe' />
+    <motion.rect
+      width={20 * rating}
+      height='10'
+      rx='5'
+      ry='5'
+      fill='url(#gradient)'
+      animate={{ width: 20 * rating, transition: { duration: 1, type: 'spring' } }}
+      stroke='#fffffe'
+    />
   </svg>
 )
 
