@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
-const titleDefault = 'JKowieskCV'
-const url = 'https://react-three-next.vercel.app/'
+const titleDefault = 'jkowiesk-cv'
+const url = 'https://jkowiesk.dev/'
 const description = "Jakub Kowieski's amazing CV created using React Three Fiber and NextJS"
 const author = 'Jakub Kowieski'
 

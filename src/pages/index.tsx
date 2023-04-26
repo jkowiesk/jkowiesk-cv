@@ -84,5 +84,5 @@ export default function Page(props) {
 Page.canvas = (props) => <Stage {...props} />
 
 export async function getStaticProps() {
-  return { props: { title: 'Main' } }
+  return { props: { title: 'Portal' } }
 }

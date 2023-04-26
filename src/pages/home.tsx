@@ -12,14 +12,8 @@ import Contact from '@/components/dom/Contact'
 import Footer from '@/components/dom/Footer'
 import { scrollToSection } from '@/utils/functions'
 
-// Dynamic import is used to prevent a payload when the website starts, that includes threejs, r3f etc..
-// WARNING ! errors might get obfuscated by using dynamic import.
-// If something goes wrong go back to a static import to show the error.
-// https://github.com/pmndrs/react-three-next/issues/49
-
 const BackgroundStage = dynamic(() => import('@/components/canvas/BackgroundStage'), { ssr: false })
 
-// Dom components go here
 export default function Page(props) {
   const [isCurtainOpen, setIsCurtainOpen] = useState(true)
 
@@ -49,7 +43,7 @@ export default function Page(props) {
             onClick={() => {
               scrollToSection('#about-me')
             }}
-            className='absolute left-0 right-0 mx-auto cursor-pointer bottom-12 w-fit group'>
+            className='fixed left-0 right-0 mx-auto cursor-pointer bottom-12 w-fit group'>
             <ArrowDown />
           </a>
         </main>
@@ -69,8 +63,6 @@ export default function Page(props) {
   )
 }
 
-// Canvas components go here
-// It will receive same props as the Page component (from getStaticProps, etc.)
 Page.canvas = (props) => <BackgroundStage {...props} />
 
 export async function getStaticProps() {
