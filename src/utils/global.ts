@@ -50,7 +50,7 @@ export const SKILLS: Skill[] = [
     description: "Not really fan of it, but if it's gets job done, I'll use it.",
     color: '#f89820',
     link: 'https://www.java.com/en/',
-    rating: 2,
+    rating: 3,
     projects: ['github.com/jkowiesk/Calc4U'],
   },
   {
@@ -124,7 +124,7 @@ export const SKILLS: Skill[] = [
     description: 'I use it for some data science projects.',
     color: '#3776ab',
     link: 'https://www.python.org/',
-    rating: 3,
+    rating: 4,
     projects: ['github.com/jkowiesk/WSI'],
   },
 ]
