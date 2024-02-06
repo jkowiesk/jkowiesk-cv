@@ -19,7 +19,7 @@ export default function Skills() {
   )
 
   return (
-    <section id='skills' className='relative flex flex-col py-14 h-[100vh] px-28'>
+    <section id='skills' className='relative flex flex-col px-16 py-14 h-[100vh] 2xl:px-28'>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           Skil<span className='textGradient bg-gradient-to-t'>ls</span>
@@ -66,7 +66,7 @@ export default function Skills() {
               animate={{ opacity: 1, x: 0 }}
               initial={{ opacity: 0, x: 20 }}
               transition={{ duration: 1 }}
-              className='relative '>
+              className='relative flex-[auto_0_0]'>
               <picture>
                 <img className='relative w-auto h-[128px]' src={`/skills/icons/${name}.png`} alt='image' />
               </picture>

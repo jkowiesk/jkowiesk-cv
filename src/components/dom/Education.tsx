@@ -35,7 +35,7 @@ export default function Education() {
   }
 
   return (
-    <section id='education' className='relative flex flex-col py-14 h-[100vh] px-28'>
+    <section id='education' className='relative flex flex-col px-16 py-14 h-[100vh] 2xl:px-28'>
       <Image
         priority
         src='/img/pigeon.gif'
@@ -104,7 +104,7 @@ export default function Education() {
                   className='absolute top-0 right-0 group-hover'>
                   <TreeIcon />
                 </motion.span>
-                <p className='relative p-2 text-xl font-bold text-purple-primary rounded-xl group-hover:text-headline group-hover:bg-purple-primary'>
+                <p className='relative p-2 text-xl font-bold cursor-none text-purple-primary rounded-xl group-hover:text-headline group-hover:bg-purple-primary'>
                   Algorithms and Data Structures
                 </p>
               </li>
@@ -119,7 +119,7 @@ export default function Education() {
                   className='absolute top-0 left-0 group-hover'>
                   <RobotIcon />
                 </motion.span>
-                <p className='relative p-2 text-xl font-bold text-purple-secondary rounded-xl group-hover:text-headline group-hover:bg-purple-secondary'>
+                <p className='relative p-2 text-xl font-bold cursor-none text-purple-secondary rounded-xl group-hover:text-headline group-hover:bg-purple-secondary'>
                   Artificial Intelligence
                 </p>
               </li>
@@ -134,7 +134,7 @@ export default function Education() {
                   className='absolute bottom-0 right-0 group-hover'>
                   <LinuxIcon />
                 </motion.span>
-                <p className='relative p-2 text-xl font-bold text-flashy-primary rounded-xl group-hover:text-headline group-hover:bg-flashy-primary'>
+                <p className='relative p-2 text-xl font-bold cursor-none text-flashy-primary rounded-xl group-hover:text-headline group-hover:bg-flashy-primary'>
                   Operating Systems
                 </p>
               </li>

@@ -36,7 +36,7 @@ export default function Contact() {
   }) */
 
   return (
-    <section ref={formSection} id='contact' className='relative flex flex-col py-14 min-h-[100vh] px-28'>
+    <section ref={formSection} id='contact' className='relative flex flex-col px-16 py-14 min-h-[100vh] 2xl:px-28'>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           Contact <span className='textGradient bg-gradient-to-t'>me</span>

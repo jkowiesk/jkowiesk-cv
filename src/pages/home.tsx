@@ -35,7 +35,7 @@ export default function Page(props) {
             <div className='text-5xl'>
               <h1 className='text-2xl text-paragraph'>Hi I&#39;m,</h1>
               <h1 className='text-headline'>Jakub Kowieski</h1>
-              <h1 className='text-contrast'>Front-end dev</h1>
+              <h1 className='text-contrast'>Software dev</h1>
             </div>
             <Image src='/icons/avatar.png' alt='avatar' width={200} height={200} />
           </div>

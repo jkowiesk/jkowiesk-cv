@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import TypingText from './TypingText'
-import { type } from 'os'
 import { scrollToSection } from '@/utils/functions'
 
 type HoveredItems = 'computer' | 'tech' | 'team' | 'challenge'
@@ -14,17 +13,19 @@ export default function AboutMe() {
   const [wasInView, setWasInView] = useState(false)
   const [hoveredName, setHoveredName] = useState<HoveredItems>('computer')
 
-  const [backgroundDivPosition, setBackgroundDivPosition] = useState({ width: 0, y: 0 })
+  const [backgroundDivPosition, setBackgroundDivPosition] = useState({ width: 0, height: 0, y: 0 })
 
   const handleHoverChange = (name: HoveredItems) => {
     const parentRect = document.getElementById('Description').getBoundingClientRect()
     const descriptionElement = document.getElementById(name).getBoundingClientRect()
 
     const width = descriptionElement.width
+    const height = descriptionElement.height + 8
     const y = descriptionElement.top - parentRect.top
 
     setBackgroundDivPosition({
       width,
+      height,
       y,
     })
     setHoveredName(name)
@@ -38,7 +39,7 @@ export default function AboutMe() {
   }
 
   return (
-    <section id='about-me' className='flex flex-col py-14 h-[100vh] px-28'>
+    <section id='about-me' className='flex flex-col px-16 py-14 h-[100vh] 2xl:px-28'>
       <div className='flex justify-between w-full'>
         <h1 className='text-5xl text-headline'>
           About <span className='textGradient bg-gradient-to-t'>me</span>
@@ -75,6 +76,7 @@ export default function AboutMe() {
             animate={{
               y: backgroundDivPosition.y,
               width: backgroundDivPosition.width,
+              height: backgroundDivPosition.height,
               transition: { duration: 0.3, type: 'spring', stiffness: 100 },
             }}></motion.div>
           <a
@@ -127,7 +129,7 @@ export default function AboutMe() {
           </a>
         </div>
 
-        <div ref={ref} className='relative flex-1 h-full grid place-items-center'>
+        <div ref={ref} className='relative h-full flex-[400px_0_0] grid place-items-center'>
           <AnimatePresence>
             <motion.img
               className='absolute top-0 bottom-0 left-0 right-0 m-auto w-[400px] h-[400px]'
