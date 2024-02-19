@@ -26,7 +26,7 @@ export default function Education() {
 
   const variantLeft = {
     hidden: { opacity: 0, x: 0, y: 0, rotateZ: -4 },
-    visible: { opacity: 1, x: -30, y: -50, rotateZ: -12 },
+    visible: { opacity: 1, x: -60, y: -10, rotateZ: -12 },
   }
 
   const variantBottom = {
@@ -68,9 +68,9 @@ export default function Education() {
         <div className='flex-1 px-16 py-8'></div>
         <div className='flex flex-col flex-none py-8 pb-32 w-[45rem] gap-16'>
           <h2 className='text-5xl text-contrast'>Warsaw University of Technology</h2>
-          <div className='flex gap-32'>
-            <p className='text-xl min-content flex-grow-1 text-paragraph'>Computer Science, BE</p>
-            <div className='relative flex-1 w-full flex-grow-4'>
+          <div className='flex'>
+            <p className='flex-1 text-xl min-content text-paragraph'>Computer Science, BE</p>
+            <div className='relative w-full flex-[2_1_0%] flex-grow-4'>
               {wasInView && <AnimatedSVG />}
               <motion.p
                 initial={{ opacity: 0 }}
@@ -83,11 +83,32 @@ export default function Education() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1, transition: { duration: 1, delay: 3.5 } }}
                   className='absolute right-[6%] top-[-100%] text-purple-secondary'>
+                  2024
+                </motion.p>
+              )}
+            </div>
+          </div>
+          <div className='flex'>
+            <p className='flex-1 text-xl min-content text-paragraph'>Computer Science, MSc</p>
+            <div className='relative flex-[2_1_0%] flex-grow-4'>
+              {wasInView && <AnimatedSVG delay={3} />}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className='absolute left-[6%] top-[-100%] text-purple-primary'>
+                2024
+              </motion.p>
+              {!!wasInView && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 1, delay: 5 } }}
+                  className='absolute right-[6%] top-[-100%] text-purple-secondary'>
                   now
                 </motion.p>
               )}
             </div>
           </div>
+
           <article className=' flex-1'>
             <h2 className='text-lg text-headline'>
               I have completed a diverse range of university courses, including topics such as :
@@ -217,7 +238,7 @@ const Hat = () => (
   </svg>
 )
 
-const AnimatedSVG = () => {
+const AnimatedSVG = ({ delay }: { delay?: number }) => {
   const rectVariants = {
     initial: {
       width: '0%',
@@ -226,7 +247,7 @@ const AnimatedSVG = () => {
       width: '80%',
       transition: {
         duration: 2,
-        delay: 1,
+        delay: delay ? delay : 1,
         type: 'linear',
         // Add a delay to the rect animation to make it start after the SVG moves into view
       },
