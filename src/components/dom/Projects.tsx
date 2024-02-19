@@ -57,19 +57,19 @@ export default function Projects() {
                 rotate: projectsHover.soundboard ? [0, -10, 10, 0] : 0,
               }}
               transition={{ y: { duration: 1 }, rotate: { repeat: Infinity, duration: 1, delay: 1, repeatDelay: 2 } }}
-              className={`text-sb inline-block ${soundboard.className}`}>
-              Soundboard
+              className={`text-purple-primary textGradient bg-gradient-to-t inline-block ${soundboard.className}`}>
+              CompoundsIO
             </motion.span>{' '}
-            which is a simple app that lets you create your own custom Android soundboard with you&apos;re favorite
-            sounds. Alternatively{' '}
+            which is a platform developed for my bachelor&apos;s degree, enabling the exploration of chemical compounds
+            in three dimensions. Alternatively{' '}
             <motion.span
               animate={{
                 y: projectsHover.portfolio ? '-15px' : '0',
                 rotate: projectsHover.portfolio ? [0, -10, 10, 0] : 0,
               }}
               transition={{ y: { duration: 1 }, rotate: { repeat: Infinity, duration: 1, delay: 1, repeatDelay: 2 } }}
-              className={`textGradient bg-gradient-to-t inline-block`}>
-              Pack<span className={`text-purple-primary ${source_code.className}`}>IT</span>
+              className={`text-red-600 inline-block`}>
+              Pack<span className={`text-red-700 ${source_code.className}`}>IT</span>
             </motion.span>
             , a project I&nbsp;developed with my college peers during a hackathon.
           </h3>
@@ -106,29 +106,27 @@ export default function Projects() {
               </div>
             </motion.article>
           </a>
-          <a
-            href='https://github.com/jkowiesk/SoundboardGenerator'
-            target='_blank'
-            className='w-full grid place-items-center'>
+          <a href='https://compounds-io.vercel.app/' target='_blank' className='w-full grid place-items-center'>
             <motion.article
               onHoverStart={() => setProjectsHover((prev) => ({ ...prev, soundboard: true }))}
               onHoverEnd={() => setProjectsHover((prev) => ({ ...prev, soundboard: false }))}
-              animate={{ background: projectsHover.soundboard ? '#dd4c354c' : '#00000000' }}
-              className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl max-w-[23rem] border-sb rounded-2xl'>
-              <h2 className={`p-4 text-red-600 text-2xl flex-none w-full h-16 text-center ${soundboard.className}`}>
-                Soundboard
+              animate={{ background: projectsHover.soundboard ? '#ad54b44c' : '#00000000' }}
+              className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl max-w-[23rem] border-purple-primary rounded-2xl'>
+              <h2
+                className={`p-4 text-purple-secondary text-2xl flex-none w-full h-16 text-center ${soundboard.className}`}>
+                CompoundsIO
               </h2>
-              <span className='relative flex-1 w-full overflow-hidden rounded-lg border-sb border-y-2 grid place-items-center'>
+              <span className='relative flex-1 w-full overflow-hidden rounded-lg border-purple-primary border-y-2 grid place-items-center'>
                 <motion.img
                   animate={{ scale: projectsHover.soundboard ? 1.2 : 1.02, transition: { duration: 2 } }}
-                  src='/screenShots/soundboard.png'
-                  className='absolute object-cover w-full'
-                  alt='soundboard'
+                  src='/screenShots/compounds.png'
+                  className='absolute object-cover w-full h-full'
+                  alt='compounds'
                 />
               </span>
-              <div className='flex-none w-full bg-sb/30  '>
-                <p className='p-4 mx-auto w-fit text-sb'>
-                  <span className='font-bold text-contrast'>Cool</span> sounds{' '}
+              <div className='flex-none w-full bg-purple-primary/30  '>
+                <p className='p-4 mx-auto w-fit text-purple-secondary'>
+                  <span className='font-bold text-contrast'>Cool</span> compounds{' '}
                 </p>
               </div>
             </motion.article>
@@ -137,12 +135,12 @@ export default function Projects() {
             <motion.article
               onHoverStart={() => setProjectsHover((prev) => ({ ...prev, portfolio: true }))}
               onHoverEnd={() => setProjectsHover((prev) => ({ ...prev, portfolio: false }))}
-              animate={{ background: projectsHover.portfolio ? '#ad54b44c' : '#00000000' }}
-              className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl max-w-[23rem] border-purple-primary rounded-2xl'>
-              <h2 className={`p-4 text-purple-secondary text-2xl flex-none w-full h-16 text-center `}>
-                Pack<span className={`text-purple-primary ${source_code.className}`}>IT</span>
+              animate={{ background: projectsHover.portfolio ? '#dd4c354c' : '#00000000' }}
+              className='flex flex-col items-center w-full h-full border-4 border-b-8 border-solid shadow-2xl max-w-[23rem] border-sb rounded-2xl'>
+              <h2 className={`p-4 text-red-600 text-2xl flex-none w-full h-16 text-center `}>
+                Pack<span className={`text-red-700 text-2xl ${source_code.className}`}>IT</span>
               </h2>
-              <span className='relative flex-1 w-full h-full overflow-hidden rounded-lg border-purple-primary border-y-2 grid place-items-center'>
+              <span className='relative flex-1 w-full h-full overflow-hidden rounded-lg border-sb border-y-2 grid place-items-center'>
                 <motion.img
                   animate={{ scale: projectsHover.portfolio ? 1.2 : 1, transition: { duration: 2 } }}
                   src='/screenShots/pack-it.png'
@@ -150,8 +148,8 @@ export default function Projects() {
                   alt='pasty'
                 />
               </span>
-              <div className='flex-none w-full bg-purple-primary/30 '>
-                <p className='p-4 mx-auto w-fit text-purple-secondary'>
+              <div className='flex-none w-full bg-sb/30'>
+                <p className='p-4 mx-auto w-fit text-sb'>
                   <span className='font-bold text-contrast'>Cool</span> packages{' '}
                 </p>
               </div>
